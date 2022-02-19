@@ -5,4 +5,6 @@ The premise goes that Bill Miller (financier), in hindsight, was an amazing stoc
 
 Dr. Mlodinow further ups the probability, considering the likelihood of any 1 person over a 40 year period seeing that level of success - defined as beating the market for 15 years or longer (in a row!) in a 40 year period - and calculating *it* at around 3 out of 4, or 75%.
 
-This R script reconsiders Dr. Mlodinow's last calculation, but attempts to consider truly individual/independent coin tossers with hard start and stop periods for each. **The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger thn the 3% of his second calculation, is much smaller than the final proposed calc of ~75%, coming in at ~33%.**
+This R script reconsiders Dr. Mlodinow's last calculation, but attempts to consider truly individual/independent coin tossers with hard start and stop periods for each. 
+
+**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger thn the 3% of his second calculation, is much smaller than the final proposed calc of ~75%, coming in at ~33%.**
