@@ -45,12 +45,11 @@ obtaining heads (tails) from the toss of a coin.
 
 Mathematically,
 
--   S\[N, K\] = p^K + sum\_{j=1, K} ( p^(j-1) \* (1-p) \* S\[N-j, K\] )
+*S*\[*N*,*K*\] = *p*<sup>*k*</sup> + ∑<sub>*j* = 1, *k*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*N*−*j*,*K*\]}
 
 which needs broken down recursively into the sum of terms
 
--   S\[n, k\] = p^k + … = sum\_{j=1, k} ( p^(j-1) \* (1-p) \* S\[n-j,
-    k\] )for 1 \<= j \<= k
+*S*\[*n*,*k*\] = *p*<sup>*k*</sup> + ... = ∑<sub>*j* = 1, *k*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*n*−*j*,*k*\]}  *f**o**r*  1 \<  = *j* \<  = *k*
 
 This recursive odds calculation is provided by `oddsOfStreak`.
 

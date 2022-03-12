@@ -37,11 +37,11 @@ is the probability of obtaining heads (tails) from the toss of a coin.
 
 Mathematically, 
 
-* S[N, K] = p^K + sum_{j=1, K} ( p^(j-1) * (1-p) * S[N-j, K] ) 
+$$S[N, K] = p^k + \sum_{j=1, k} \{ p^{j-1} * (1-p) * S[N-j, K] \}$$
 
 which needs broken down recursively into the sum of terms
 
-* S[n, k] = p^k + ... = sum_{j=1, k} ( p^(j-1) * (1-p) * S[n-j, k]  )for 1 <= j <= k
+$$S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{j-1} * (1-p) * S[n-j, k] \} \quad for \quad 1 <= j <= k$$
 
 This recursive odds calculation is provided by `oddsOfStreak`.
 
