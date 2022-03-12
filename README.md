@@ -28,13 +28,14 @@ closer to 3%.
 
 Dr. Mlodinow then further ups the probability, considering the
 likelihood that any 1 person over a 40 year period seeing that level of
-success - defined as beating the market for 15 years in a row or longer
-- is roughly around 3 out of 4, or 75%.
+success, defined as beating the market for 15 years in a row or longer,
+is roughly 3 out of 4, or 75%.
 
 **The resulting likelihood for any one person to beat the market within
 a definite start and stop time of at least 15 years in a single 40 year
 period, while larger the the 3% of his second calculation, is much
-smaller than the final proposed calc of \~75%, coming in at \~33%.**
+smaller than the final proposed result of \~75%, which this calculates
+at \~33%.**
 
 ## The Math
 

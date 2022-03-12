@@ -26,9 +26,9 @@ This package calculates "The Bill Miller Problem" from Leonard Mlodinow's "The D
 
 The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768. Dr., Mlodinow ups this likelihood, stating that the probability that any 1 person among 1000 who started "tossing coins" (i.e. picking stocks) was closer to 3%.
 
-Dr. Mlodinow then further ups the probability, considering the likelihood that any 1 person over a 40 year period seeing that level of success - defined as beating the market for 15 years in a row or longer - is roughly around 3 out of 4, or 75%.
+Dr. Mlodinow then further ups the probability, considering the likelihood that any 1 person over a 40 year period seeing that level of success, defined as beating the market for 15 years in a row or longer, is roughly 3 out of 4, or 75%.
 
-**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger the the 3% of his second calculation, is much smaller than the final proposed calc of ~75%, coming in at ~33%.**
+**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger the the 3% of his second calculation, is much smaller than the final proposed result of ~75%, which this calculates at ~33%.**
 
 ## The Math
 
