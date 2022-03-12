@@ -3,7 +3,7 @@
 
 # billmillr
 
-**Author:** [Matthew Hoff](https://github.com/mghoff) **License:**
+**Author:** [Matthew Hoff](https://github.com/mghoff) <br/> **License:**
 [MIT](https://opensource.org/licenses/MIT)<br/>
 
 [![Project Status: Active – The project has reached a stable, usable
