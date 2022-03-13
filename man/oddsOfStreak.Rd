@@ -4,7 +4,7 @@
 \alias{oddsOfStreak}
 \title{Odds of a single streak}
 \usage{
-oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5, .saved = NULL)
 }
 \arguments{
 \item{numCoins}{integer, total number of coin flips}
@@ -12,6 +12,10 @@ oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
 \item{minHeads}{integer, minimum number of heads to to obtained in a single streak}
 
 \item{probHeads}{number, probability of obtaining a heads on a single coin toss}
+
+\item{.saved}{data frame, contains previously computed probabilities for a given index;
+used to speed up recursion so not to recalculate every probability should an already seen
+scenario of numCoins, minHeads, and probHeads arises.}
 }
 \value{
 numeric, odds of streak
