@@ -40,26 +40,29 @@ at \~33%.**
 ## The Math
 
 Firstly, one must compute the odds of getting a run (Streak) of at least
-k heads out of n coin tosses where p (q = 1-p) is the probability of
+*k* heads out of *N* coin tosses where p (q = 1-p) is the probability of
 obtaining heads (tails) from the toss of a coin.
 
 Mathematically,
 
-*S*\[*N*,*K*\] = *p*<sup>*k*</sup> + ∑<sub>*j* = 1, *k*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*N*−*j*,*K*\]}
+*S*\[*N*,*K*\] = *p*<sup>*k*</sup> + ∑<sub>*j* = 1, *K*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*N*−*j*,*K*\]}
 
-which needs broken down recursively into the sum of terms
+which can be broken down recursively into the sum of terms:
 
 *S*\[*n*,*k*\] = *p*<sup>*k*</sup> + ... = ∑<sub>*j* = 1, *k*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*n*−*j*,*k*\]}  *f**o**r*  1 \<  = *j* \<  = *k*
+See this [Ask A
+Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/)
+post for more information.
 
-This recursive odds calculation is provided by `oddsOfStreak`.
+This recursive odds calculation is provided by `oddsOfStreak()`.
 
-Secondly, to calculate the likelihood that at least 1 out of X-number of
-people will obtain a streak of at least k Heads out of n coin tosses,
-one must perform the following:
+Secondly, to calculate the likelihood that at least *x* out of *M*
+people will obtain a streak of at least *k* Heads out of *N* coin
+tosses, one must perform the following:
 
-1.  Calculate the pdf: P(X = x) = choose(n, x) \* (p^x) \* ((1-p)^(n-x))
-2.  Calculate the cdf: P(X \<= x) = sum\_{i=0, x} (1) for i \<= x
-3.  Calculate P(X > x) = 1 - P(X \<= x); i.e. 1 - (2)
+1.  Calculate the pdf: $ (X = x) =  \* p^{x} \* (1-p)^{(M-x)} $
+2.  Calculate the cdf: $ (X x) = \_{i=0, x} {i x} $
+3.  Calculate $ (X > x) = 1 - (X x)  (1) - (2) $
 
 which can be performed by using the `probOfAtLeastK`.
 
