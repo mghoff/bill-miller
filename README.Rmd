@@ -33,7 +33,7 @@ Dr. Mlodinow then further ups the probability, considering the likelihood that a
 ## The Math
 
 #### Part 1:
-One must compute the odds of getting a run (Streak) of at least $k$ heads out of $N$ coin tosses where p (q = 1-p)
+One must compute the odds of getting a run (Streak) of at least k heads out of N coin tosses where p (q = 1-p)
 is the probability of obtaining heads (tails) from the toss of a coin.
 
 Mathematically, 
@@ -51,11 +51,19 @@ For more information on the math behind this recursive odds calculation, see thi
 
 
 #### Part 2:
-To calculate the likelihood that at least $x$ out of $M$ people will obtain a streak of at least $k$ Heads out of $N$ coin tosses, one must perform the following:
+To calculate the likelihood that at least x out of M people will obtain a streak of at least k Heads out of N coin tosses, one must perform the following:
 
-1. Calculate the pdf: $\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}$
-2. Calculate the cdf: $\mathrm{P}(X \le x) = \sum_{i=0, x} \mathrm{pdf} \text{ for } {i \le x}$
-3. Calculate $\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
+1. Calculate the pdf: 
+
+$\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}$
+
+2. Calculate the cdf: 
+
+$\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$
+
+3. Finally, calculate:
+
+$\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
 
 which is provided by `probOfAtLeastK`.
 

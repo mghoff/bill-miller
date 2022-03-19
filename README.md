@@ -41,12 +41,9 @@ at \~33%.**
 
 #### Part 1:
 
-One must compute the odds of getting a run (Streak) of at least
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k "k")
-heads out of
-![N](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;N "N")
-coin tosses where p (q = 1-p) is the probability of obtaining heads
-(tails) from the toss of a coin.
+One must compute the odds of getting a run (Streak) of at least k heads
+out of N coin tosses where p (q = 1-p) is the probability of obtaining
+heads (tails) from the toss of a coin.
 
 Mathematically,
 
@@ -65,22 +62,21 @@ post.
 
 #### Part 2:
 
-To calculate the likelihood that at least
-![x](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x "x")
-out of
-![M](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;M "M")
-people will obtain a streak of at least
-![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k "k")
-Heads out of
-![N](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;N "N")
-coin tosses, one must perform the following:
+To calculate the likelihood that at least x out of M people will obtain
+a streak of at least k Heads out of N coin tosses, one must perform the
+following:
 
 1.  Calculate the pdf:
-    ![\\mathrm{P}(X=x)={M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%3Dx%29%3D%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}")
+
+![\\mathrm{P}(X=x)={M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%3Dx%29%3D%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}")
+
 2.  Calculate the cdf:
-    ![\\mathrm{P}(X \\le x) = \\sum\_{i=0, x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2C%20x%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0, x} \mathrm{pdf} \text{ for } {i \le x}")
-3.  Calculate
-    ![\\mathrm{P}(X > x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
+
+![\\mathrm{P}(X \\le x) = \\sum\_{i=0,x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
+
+3.  Finally, calculate:
+
+![\\mathrm{P}(X > x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
 
 which is provided by `probOfAtLeastK`.
 
