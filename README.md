@@ -39,32 +39,50 @@ at \~33%.**
 
 ## The Math
 
-Firstly, one must compute the odds of getting a run (Streak) of at least
-*k* heads out of *N* coin tosses where p (q = 1-p) is the probability of
-obtaining heads (tails) from the toss of a coin.
+#### Part 1:
+
+One must compute the odds of getting a run (Streak) of at least
+![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k "k")
+heads out of
+![N](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;N "N")
+coin tosses where p (q = 1-p) is the probability of obtaining heads
+(tails) from the toss of a coin.
 
 Mathematically,
 
-*S*\[*N*,*K*\] = *p*<sup>*k*</sup> + ∑<sub>*j* = 1, *K*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*N*−*j*,*K*\]}
+![S\[N, K\] = p^k + \\sum\_{j=1, K} \\{ p^{(j-1)} (1-p) S\[N-j, K\] \\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5BN%2C%20K%5D%20%3D%20p%5Ek%20%2B%20%5Csum_%7Bj%3D1%2C%20K%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5BN-j%2C%20K%5D%20%5C%7D "S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}")
 
 which can be broken down recursively into the sum of terms:
 
-*S*\[*n*,*k*\] = *p*<sup>*k*</sup> + ... = ∑<sub>*j* = 1, *k*</sub>{*p*<sup>*j* − 1</sup> \* (1−*p*) \* *S*\[*n*−*j*,*k*\]}  *f**o**r*  1 \<  = *j* \<  = *k*
-See this [Ask A
+![S\[n, k\] = p^k + ... = \\sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \\text{ for } 1 \\le j \\le k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
+
+which is provided by `oddsOfStreak`.
+
+For more information on the math behind this recursive odds calculation,
+see this [Ask A
 Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/)
-post for more information.
+post.
 
-This recursive odds calculation is provided by `oddsOfStreak()`.
+#### Part 2:
 
-Secondly, to calculate the likelihood that at least *x* out of *M*
-people will obtain a streak of at least *k* Heads out of *N* coin
-tosses, one must perform the following:
+To calculate the likelihood that at least
+![x](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;x "x")
+out of
+![M](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;M "M")
+people will obtain a streak of at least
+![k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;k "k")
+Heads out of
+![N](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;N "N")
+coin tosses, one must perform the following:
 
-1.  Calculate the pdf: $ (X = x) =  \* p^{x} \* (1-p)^{(M-x)} $
-2.  Calculate the cdf: $ (X x) = \_{i=0, x} {i x} $
-3.  Calculate $ (X > x) = 1 - (X x)  (1) - (2) $
+1.  Calculate the pdf:
+    ![\\mathrm{P}(X=x)={M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%3Dx%29%3D%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}")
+2.  Calculate the cdf:
+    ![\\mathrm{P}(X \\le x) = \\sum\_{i=0, x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2C%20x%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0, x} \mathrm{pdf} \text{ for } {i \le x}")
+3.  Calculate
+    ![\\mathrm{P}(X > x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
 
-which can be performed by using the `probOfAtLeastK`.
+which is provided by `probOfAtLeastK`.
 
 ## An Example
 
@@ -74,14 +92,14 @@ Load Package…
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 3 Heads out of 10 coin
+Calculate the likelihood of a streak of at least 5 heads out of 10 coin
 tosses given that the probability p (q) of heads (tails) is fair, i.e. p
 = q = 0.5.
 
 ``` r
-pS <- oddsOfStreak(numCoins = 10, minHeads = 3, probHeads = 0.5)
+pS <- oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
 pS
-#> [1] 0.5449219
+#> [1] 0.109375
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
 # tictoc::tic()
@@ -89,13 +107,14 @@ pS
 # tictoc::toc() # 24713.89 sec elapsed (6.865 hours)
 ```
 
-Now calculate the probability that at least 1 out of 100 people will
+Now calculate the probability that at least 1 out of 5 people will
 obtain such a streak given that the probability of said streak is
-0.5449219.
+0.109375.
 
 ``` r
-probOfAtLeastK(N = 100, K = 1, P = pS)
-#> [1] 1
+pK <- probOfAtLeastK(N = 5, K = 1, P = pS)
+pK
+#> [1] 0.4396306
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
 # # Result (1): P(X = k) where k = 0

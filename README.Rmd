@@ -32,27 +32,32 @@ Dr. Mlodinow then further ups the probability, considering the likelihood that a
 
 ## The Math
 
-Firstly, one must compute the odds of getting a run (Streak) of at least $k$ heads out of $N$ coin tosses where p (q = 1-p)
+#### Part 1:
+One must compute the odds of getting a run (Streak) of at least $k$ heads out of $N$ coin tosses where p (q = 1-p)
 is the probability of obtaining heads (tails) from the toss of a coin.
 
 Mathematically, 
 
-$$S[N, K] = p^k + \sum_{j=1, K} \{ p^{j-1} * (1-p) * S[N-j, K] \}$$
+$$S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}$$
 
 which can be broken down recursively into the sum of terms:
 
-$$S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{j-1} * (1-p) * S[n-j, k] \} \quad for \quad 1 <= j <= k$$
-See this [Ask A Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/) post for more information.
+$$S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k$$
 
-This recursive odds calculation is provided by `oddsOfStreak()`.
+which is provided by `oddsOfStreak`.
 
-Secondly, to calculate the likelihood that at least $x$ out of $M$ people will obtain a streak of at least $k$ Heads out of $N$ coin tosses, one must perform the following:
+For more information on the math behind this recursive odds calculation, see this
+[Ask A Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/) post.
 
-1. Calculate the pdf: $ \mathrm{P}(X = x) = \binom{M}{x} * p^{x} * (1-p)^{(M-x)} $
-2. Calculate the cdf: $ \mathrm{P}(X \le x) = \sum_{i=0, x} \mathrm{pdf} \text{ for } {i \le x} $
-3. Calculate $ \mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2) $
 
-which can be performed by using the `probOfAtLeastK`.
+#### Part 2:
+To calculate the likelihood that at least $x$ out of $M$ people will obtain a streak of at least $k$ Heads out of $N$ coin tosses, one must perform the following:
+
+1. Calculate the pdf: $\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}$
+2. Calculate the cdf: $\mathrm{P}(X \le x) = \sum_{i=0, x} \mathrm{pdf} \text{ for } {i \le x}$
+3. Calculate $\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
+
+which is provided by `probOfAtLeastK`.
 
 
 ## An Example
@@ -63,11 +68,11 @@ Load Package...
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 3 Heads out of 10 coin tosses
+Calculate the likelihood of a streak of at least 5 heads out of 10 coin tosses
 given that the probability p (q) of heads (tails) is fair, i.e. p = q = 0.5.
 
 ```{r prob-of-streak}
-pS <- oddsOfStreak(numCoins = 10, minHeads = 3, probHeads = 0.5)
+pS <- oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
 pS
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
@@ -76,11 +81,12 @@ pS
 # tictoc::toc() # 24713.89 sec elapsed (6.865 hours)
 ```
 
-Now calculate the probability that at least 1 out of 100 people will obtain
+Now calculate the probability that at least 1 out of 5 people will obtain
 such a streak given that the probability of said streak is `r pS`.
 
 ```{r prob-at-least-k}
-probOfAtLeastK(N = 100, K = 1, P = pS)
+pK <- probOfAtLeastK(N = 5, K = 1, P = pS)
+pK
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
 # # Result (1): P(X = k) where k = 0
