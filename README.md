@@ -80,7 +80,7 @@ following:
 
 which is provided by `probOfAtLeastK`.
 
-## An Example
+## Example 1: Mathematical Proof
 
 Load Package…
 
@@ -116,4 +116,47 @@ pK
 # # Result (1): P(X = k) where k = 0
 # choose(n, k)*(p**k)*((1-p)**(n-k))
 # # P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
+```
+
+## Example 2: Simulation
+
+Run a simulation on the problem, and return the set of resulting data
+
+``` r
+sim_data <- run_simulation(iters = 5000)
+tail(sim_data)
+#>      iteration applicable_trials prob_of_zero
+#> 4995      4995                 0     0.667067
+#> 4996      4996                 0     0.667134
+#> 4997      4997                 2     0.667000
+#> 4998      4998                 0     0.667067
+#> 4999      4999                 0     0.667133
+#> 5000      5000                 0     0.667200
+```
+
+Plot the probability convergence of the simulation results
+
+``` r
+plot(x = sim_data$iteration, y = sim_data$prob_of_zero, type = "l", col = "red",
+     main = "Probability Convergence", xlab = "iterations", ylab = "probability")
+```
+
+![](README_files/figure-gfm/plot-results-1.png)<!-- -->
+
+Calculate the probability of obtaining zero streaks…
+
+``` r
+tail(sim_data, n = 1)
+#>      iteration applicable_trials prob_of_zero
+#> 5000      5000                 0       0.6672
+nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
+#> [1] 0.6672
+```
+
+…followed by the probability of at least 1 streak.
+
+``` r
+# Probability of at least 1 streak; i.e. 1 - P(0)
+1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
+#> [1] 0.3328
 ```
