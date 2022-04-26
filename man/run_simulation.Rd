@@ -7,7 +7,13 @@
 run_simulation(iters = 100, trials = 1000, flips = 40, streak_length = 15)
 }
 \arguments{
-\item{n}{number, count of times to iterate over \code{count_runs()}}
+\item{iters}{number, number of sumulation iterations to consider}
+
+\item{trials}{number, see \code{count_runs()}}
+
+\item{flips}{number, see \code{count_runs()}}
+
+\item{streak_length}{number, see \code{count_runs()}}
 }
 \value{
 data frame

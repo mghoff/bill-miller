@@ -11,7 +11,7 @@
 #' @export
 #'
 #' @examples
-#' find_longest_run()
+#' find_longest_run(binom_sample = sample(c(0, 1), size = 25, replace = TRUE))
 find_longest_run <- function(binom_sample) {
   run <- max_run <- 0
   for (i in 2:length(binom_sample)) {
@@ -66,7 +66,10 @@ count_runs <- function(trials = 1000, flips = 40, streak_length = 15) {
 #' 2.) the count of applicable trials in that iteration, and
 #' 3.) the cumulative probability of obtaining zero streaks.
 #'
-#' @param n number, count of times to iterate over \code{count_runs()}
+#' @param iters number, number of sumulation iterations to consider
+#' @param trials number, see \code{count_runs()}
+#' @param flips number, see \code{count_runs()}
+#' @param streak_length number, see \code{count_runs()}
 #'
 #' @return data frame
 #' @export

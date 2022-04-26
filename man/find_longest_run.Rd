@@ -17,5 +17,5 @@ Finds the single longest run ("streak") of the value "1"
 provided in a binomial sample of size n.
 }
 \examples{
-find_longest_run()
+find_longest_run(binom_sample = sample(c(0, 1), size = 25, replace = TRUE))
 }
