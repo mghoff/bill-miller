@@ -1,5 +1,4 @@
 
-
 #' Find the Longest Run
 #'
 #' Finds the single longest run ("streak") of the value "1"

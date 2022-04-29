@@ -7,7 +7,8 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -112,10 +113,7 @@ tail(sim_data)
 ```
 
 Plot the probability convergence of the simulation results
-```{r plot-results}
-plot(x = sim_data$iteration, y = sim_data$prob_of_zero, type = "l", col = "red",
-     main = "Probability Convergence", xlab = "iterations", ylab = "probability")
-```
+<p><img src="man/figures/README-fig1.png" class="centering" width="80%"></p>
 
 Calculate the probability of obtaining zero streaks...
 ```{r zero-prob-calc}
