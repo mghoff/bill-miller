@@ -7,7 +7,8 @@ output: github_document
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/README-"
 )
 ```
 
@@ -68,7 +69,7 @@ $\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
 which is provided by `probOfAtLeastK`.
 
 
-## An Example
+## Example 1: Mathematical Proof
 
 Load Package...
 
@@ -102,3 +103,26 @@ pK
 # # P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
 ```
 
+
+## Example 2: Simulation
+
+Run a simulation on the problem, and return the set of resulting data
+```{r run-simulation}
+sim_data <- run_simulation(iters = 5000)
+tail(sim_data)
+```
+
+Plot the probability convergence of the simulation results
+<p><img src="man/figures/README-fig1.png" class="centering" width="80%"></p>
+
+Calculate the probability of obtaining zero streaks...
+```{r zero-prob-calc}
+tail(sim_data, n = 1)
+nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
+```
+
+...followed by the probability of at least 1 streak.
+```{r final-prob-calc}
+# Probability of at least 1 streak; i.e. 1 - P(0)
+1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
+```
