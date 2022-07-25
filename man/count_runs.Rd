@@ -17,8 +17,8 @@ count_runs(trials = 1000, flips = 40, streak_length = 15)
 number
 }
 \description{
-Out of a given number of trials of flipping a coin n times, count the number of
-times a run/streak of length k occurs
+Out of a given number of trials flipping a fair coin (p = 0.5) n times, count the number of
+times a run (streak) of length k occurs
 }
 \examples{
 count_runs()

@@ -1,9 +1,9 @@
 #' Find the Longest Run
 #'
-#' Finds the single longest run ("streak") of the value "1"
-#' provided in a binomial sample of size n.
+#' Finds the single longest run (streak) of the value "1"
+#' provided from a binomial sample of size n with probability
 #'
-#' @param binom_sample, numeric vector - a binomial sample; e.g. \code{sample(c(0, 1), size = 5, replace = TRUE)}
+#' @param binom_sample numeric vector, a binomial sample; e.g. \code{sample(c(0, 1), size = 5, replace = TRUE)}
 #'
 #' @return number, representing the longest streak (run of "1") in the provided sample
 #' @export
@@ -27,8 +27,8 @@ find_longest_run <- function(binom_sample) {
 
 #' Count Runs
 #'
-#' Out of a given number of trials of flipping a coin n times, count the number of
-#' times a run/streak of length k occurs
+#' Out of a given number of trials flipping a fair coin (p = 0.5) n times, count the number of
+#' times a run (streak) of length k occurs
 #'
 #' @param trials number, number of attempts to flip a coin n times
 #' @param flips number, number of sequential coin flips in which a streak could be counted
