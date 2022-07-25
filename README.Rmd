@@ -45,7 +45,7 @@ which can be broken down recursively into the sum of terms:
 
 $$S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k$$
 
-which is provided by `oddsOfStreak`.
+which is provided by `odds_of_streak()`.
 
 For more information on the math behind this recursive odds calculation, see this
 [Ask A Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/) post.
@@ -66,7 +66,7 @@ $\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$
 
 $\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
 
-which is provided by `probOfAtLeastK`.
+which is provided by `prob_of_at_least_k()`.
 
 
 ## Example 1: Mathematical Proof
@@ -81,7 +81,7 @@ Calculate the likelihood of a streak of at least 5 heads out of 10 coin tosses
 given that the probability p (q) of heads (tails) is fair, i.e. p = q = 0.5.
 
 ```{r prob-of-streak}
-pS <- oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+pS <- odds_of_streak(numCoins = 10, minHeads = 5, probHeads = 0.5)
 pS
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
@@ -94,7 +94,7 @@ Now calculate the probability that at least 1 out of 5 people will obtain
 such a streak given that the probability of said streak is `r pS`.
 
 ```{r prob-at-least-k}
-pK <- probOfAtLeastK(N = 5, K = 1, P = pS)
+pK <- prob_of_at_least_k(N = 5, K = 1, P = pS)
 pK
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...

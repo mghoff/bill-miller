@@ -53,7 +53,7 @@ which can be broken down recursively into the sum of terms:
 
 ![S\[n, k\] = p^k + ... = \\sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \\text{ for } 1 \\le j \\le k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
 
-which is provided by `oddsOfStreak`.
+which is provided by `odds_of_streak()`.
 
 For more information on the math behind this recursive odds calculation,
 see this [Ask A
@@ -76,9 +76,9 @@ following:
 
 3.  Finally, calculate:
 
-![\\mathrm{P}(X > x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
+![\\mathrm{P}(X \> x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
 
-which is provided by `probOfAtLeastK`.
+which is provided by `prob_of_at_least_k()`.
 
 ## Example 1: Mathematical Proof
 
@@ -93,7 +93,7 @@ tosses given that the probability p (q) of heads (tails) is fair, i.e. p
 = q = 0.5.
 
 ``` r
-pS <- oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+pS <- odds_of_streak(numCoins = 10, minHeads = 5, probHeads = 0.5)
 pS
 #> [1] 0.109375
 
@@ -108,7 +108,7 @@ obtain such a streak given that the probability of said streak is
 0.109375.
 
 ``` r
-pK <- probOfAtLeastK(N = 5, K = 1, P = pS)
+pK <- prob_of_at_least_k(N = 5, K = 1, P = pS)
 pK
 #> [1] 0.4396306
 
@@ -126,12 +126,12 @@ Run a simulation on the problem, and return the set of resulting data
 sim_data <- run_simulation(iters = 5000)
 tail(sim_data)
 #>      iteration applicable_trials prob_of_zero
-#> 4995      4995                 0     0.664264
-#> 4996      4996                 0     0.664331
-#> 4997      4997                 1     0.664199
-#> 4998      4998                 0     0.664266
-#> 4999      4999                 3     0.664133
-#> 5000      5000                 0     0.664200
+#> 4995      4995                 0     0.671071
+#> 4996      4996                 0     0.671137
+#> 4997      4997                 0     0.671203
+#> 4998      4998                 0     0.671269
+#> 4999      4999                 1     0.671134
+#> 5000      5000                 0     0.671200
 ```
 
 Plot the probability convergence of the simulation results
@@ -144,9 +144,9 @@ Calculate the probability of obtaining zero streaks…
 ``` r
 tail(sim_data, n = 1)
 #>      iteration applicable_trials prob_of_zero
-#> 5000      5000                 0       0.6642
+#> 5000      5000                 0       0.6712
 nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6642
+#> [1] 0.6712
 ```
 
 …followed by the probability of at least 1 streak.
@@ -154,5 +154,5 @@ nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
 ``` r
 # Probability of at least 1 streak; i.e. 1 - P(0)
 1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3358
+#> [1] 0.3288
 ```
