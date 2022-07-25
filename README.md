@@ -33,7 +33,7 @@ is roughly 3 out of 4, or 75%.
 
 **The resulting likelihood for any one person to beat the market within
 a definite start and stop time of at least 15 years in a single 40 year
-period, while larger the the 3% of his second calculation, is much
+period, while larger than the 3% of his second calculation, is much
 smaller than the final proposed result of \~75%, which this calculates
 at \~33%.**
 
@@ -66,11 +66,11 @@ To calculate the likelihood that at least x out of M people will obtain
 a streak of at least k Heads out of N coin tosses, one must perform the
 following:
 
-1.  Calculate the pdf:
+1.  Calculate the PDF:
 
-![\\mathrm{P}(X=x)={M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%3Dx%29%3D%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}")
+![\\mathrm{P}(X = x) = {M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3D%20x%29%20%3D%20%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X = x) = {M \choose x}p^{x}(1-p)^{(M-x)}")
 
-2.  Calculate the cdf:
+2.  Calculate the CDF:
 
 ![\\mathrm{P}(X \\le x) = \\sum\_{i=0,x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
 
@@ -93,7 +93,7 @@ tosses given that the probability p (q) of heads (tails) is fair, i.e. p
 = q = 0.5.
 
 ``` r
-pS <- odds_of_streak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+pS <- odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5)
 pS
 #> [1] 0.109375
 
@@ -126,12 +126,12 @@ Run a simulation on the problem, and return the set of resulting data
 sim_data <- run_simulation(iters = 5000)
 tail(sim_data)
 #>      iteration applicable_trials prob_of_zero
-#> 4995      4995                 0     0.671071
-#> 4996      4996                 0     0.671137
-#> 4997      4997                 0     0.671203
-#> 4998      4998                 0     0.671269
-#> 4999      4999                 1     0.671134
-#> 5000      5000                 0     0.671200
+#> 4995      4995                 1     0.673674
+#> 4996      4996                 1     0.673539
+#> 4997      4997                 0     0.673604
+#> 4998      4998                 0     0.673669
+#> 4999      4999                 0     0.673735
+#> 5000      5000                 0     0.673800
 ```
 
 Plot the probability convergence of the simulation results
@@ -144,9 +144,9 @@ Calculate the probability of obtaining zero streaks…
 ``` r
 tail(sim_data, n = 1)
 #>      iteration applicable_trials prob_of_zero
-#> 5000      5000                 0       0.6712
+#> 5000      5000                 0       0.6738
 nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6712
+#> [1] 0.6738
 ```
 
 …followed by the probability of at least 1 streak.
@@ -154,5 +154,5 @@ nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
 ``` r
 # Probability of at least 1 streak; i.e. 1 - P(0)
 1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3288
+#> [1] 0.3262
 ```

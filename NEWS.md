@@ -10,4 +10,4 @@
 # billmillr 0.2.1
 
 * Converted analytics functions to use lower snake case.
-* Updated documentation based on rstudio::conf(2022) pkg dev workshop.
+* Updated documentation based on rstudio::conf(2022) pkg development workshop.

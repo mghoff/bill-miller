@@ -29,7 +29,7 @@ The premise of this story goes that Bill Miller (financier) was an amazing stock
 
 Dr. Mlodinow then further ups the probability, considering the likelihood that any 1 person over a 40 year period seeing that level of success, defined as beating the market for 15 years in a row or longer, is roughly 3 out of 4, or 75%.
 
-**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger the the 3% of his second calculation, is much smaller than the final proposed result of ~75%, which this calculates at ~33%.**
+**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger than the 3% of his second calculation, is much smaller than the final proposed result of ~75%, which this calculates at ~33%.**
 
 ## The Math
 
@@ -54,11 +54,11 @@ For more information on the math behind this recursive odds calculation, see thi
 #### Part 2:
 To calculate the likelihood that at least x out of M people will obtain a streak of at least k Heads out of N coin tosses, one must perform the following:
 
-1. Calculate the pdf: 
+1. Calculate the PDF: 
 
-$\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}$
+$\mathrm{P}(X = x) = {M \choose x}p^{x}(1-p)^{(M-x)}$
 
-2. Calculate the cdf: 
+2. Calculate the CDF: 
 
 $\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$
 
@@ -81,7 +81,7 @@ Calculate the likelihood of a streak of at least 5 heads out of 10 coin tosses
 given that the probability p (q) of heads (tails) is fair, i.e. p = q = 0.5.
 
 ```{r prob-of-streak}
-pS <- odds_of_streak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+pS <- odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5)
 pS
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
