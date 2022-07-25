@@ -1,4 +1,3 @@
-
 #' Find the Longest Run
 #'
 #' Finds the single longest run ("streak") of the value "1"
@@ -14,7 +13,7 @@
 find_longest_run <- function(binom_sample) {
   run <- max_run <- 0
   for (i in 2:length(binom_sample)) {
-    if (binom_sample[i] == 1 && binom_sample[i] == binom_sample[i-1]) {
+    if (binom_sample[i] == 1 && binom_sample[i] == binom_sample[i - 1]) {
       run <- run + 1
       max_run <- max(max_run, run)
     } else {
@@ -81,7 +80,6 @@ run_simulation <- function(iters = 100, trials = 1000, flips = 40, streak_length
     d[i, 1] <- i
     d[i, 2] <- count_runs(trials = trials, flips = flips, streak_length = streak_length)
     d[i, 3] <- round(nrow(d[which(d[, 2] == 0), ]) / nrow(d), 6)
-
   }
   names(d) <- c("iteration", "applicable_trials", "prob_of_zero")
   return(d)
