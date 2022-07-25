@@ -4,19 +4,30 @@
 \alias{run_simulation}
 \title{Run Simulation}
 \usage{
-run_simulation(iters = 100, trials = 1000, flips = 40, streak_length = 15)
+run_simulation(
+  iters = 100,
+  trials = 1000,
+  sample_space = c(0, 1),
+  sample_size = 40,
+  run_value = 1,
+  run_length = 15
+)
 }
 \arguments{
-\item{iters}{number, number of simulation iterations to consider}
+\item{iters}{number, number of simulation iterations}
 
 \item{trials}{number, see \code{count_runs()}}
 
-\item{flips}{number, see \code{count_runs()}}
+\item{sample_space}{vector, see \code{count_runs()}}
 
-\item{streak_length}{number, see \code{count_runs()}}
+\item{sample_size}{number, see \code{count_runs()}}
+
+\item{run_value}{number, see \code{count_runs()}}
+
+\item{run_length}{number, see \code{count_runs()}}
 }
 \value{
-data frame
+data frame with 3 columns; the number of rows determined by \code{iters}
 }
 \description{
 Iterate over \code{count_runs()}, counting the number of applicable trials where

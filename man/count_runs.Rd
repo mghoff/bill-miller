@@ -4,14 +4,24 @@
 \alias{count_runs}
 \title{Count Runs}
 \usage{
-count_runs(trials = 1000, flips = 40, streak_length = 15)
+count_runs(
+  trials = 1000,
+  sample_space = c(0, 1),
+  sample_size = 40,
+  run_value = 1,
+  run_length = 15
+)
 }
 \arguments{
-\item{trials}{number, number of attempts to flip a coin n times}
+\item{trials}{number, number of attempts to flip a coin n times.}
 
-\item{flips}{number, number of sequential coin flips in which a streak could be counted}
+\item{sample_space}{vector, vector of unique values from which to sample.}
 
-\item{streak_length}{number, length of streak of interest}
+\item{sample_size}{number, size of sample to generate from \code{sample_space}.}
+
+\item{run_value}{number or character, the value on which to count sequential occurrences.}
+
+\item{run_length}{number, length of streak of interest.}
 }
 \value{
 number
