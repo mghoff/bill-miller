@@ -2,6 +2,6 @@
 
 export(count_runs)
 export(find_longest_run)
-export(oddsOfStreak)
-export(probOfAtLeastK)
+export(odds_of_streak)
+export(prob_of_at_least_k)
 export(run_simulation)
