@@ -64,7 +64,7 @@ count_runs <- function(trials = 1000, flips = 40, streak_length = 15) {
 #' 2.) the count of applicable trials in that iteration, and
 #' 3.) the cumulative probability of obtaining zero streaks.
 #'
-#' @param iters number, number of sumulation iterations to consider
+#' @param iters number, number of simulation iterations to consider
 #' @param trials number, see \code{count_runs()}
 #' @param flips number, see \code{count_runs()}
 #' @param streak_length number, see \code{count_runs()}

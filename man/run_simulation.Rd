@@ -7,7 +7,7 @@
 run_simulation(iters = 100, trials = 1000, flips = 40, streak_length = 15)
 }
 \arguments{
-\item{iters}{number, number of sumulation iterations to consider}
+\item{iters}{number, number of simulation iterations to consider}
 
 \item{trials}{number, see \code{count_runs()}}
 

@@ -5,11 +5,16 @@ Authors@R:
     person("Matthew", "Hoff", , "matthew.g.hoff@gmail.com", role = c("aut", "cre"))
 Description: This package calculates the likelihood that any one trader
     out of n traders will beat the market in at least a k-years sequence
-    out of a t-years timeframe by considering independent and definite
+    out of a t-years time period by considering independent and definite
     start and stop periods of such a k-years sequence given a t-years
-    timeframe for the nth trader.
+    time period for the nth trader.
 License: MIT + file LICENSE
 URL: https://github.com/mghoff/billmillr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
+Suggests: 
+    spelling,
+    testthat (>= 3.0.0)
+Language: en-US
+Config/testthat/edition: 3

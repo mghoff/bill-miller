@@ -6,7 +6,7 @@
 \alias{billmillr-package}
 \title{billmillr: Rethinking the Bill Miller Problem}
 \description{
-This package calculates the likelihood that any one trader out of n traders will beat the market in at least a k-years sequence out of a t-years timeframe by considering independent and definite start and stop periods of such a k-years sequence given a t-years timeframe for the nth trader.
+This package calculates the likelihood that any one trader out of n traders will beat the market in at least a k-years sequence out of a t-years time period by considering independent and definite start and stop periods of such a k-years sequence given a t-years time period for the nth trader.
 }
 \seealso{
 Useful links:
