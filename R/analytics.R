@@ -51,10 +51,10 @@ odds_of_streak <- function(num_coins = 10, min_heads = 5, prob_heads = 0.5, .sav
         result <- result + (prob_heads**(first_tail - 1)) * (1 - prob_heads) * pr
       }
       # Save computed value for later use, if needed; i.e. if prob has already been calculated
-      .saved <- data.frame(rbind(.saved, cbind(ID, result)), stringsAsFactors = FALSE)
+      .saved <- rbind.data.frame(.saved, as.data.frame(cbind(ID, result)))
     }
   }
-  # Return computed value
+  # Return final result
   return(result)
 }
 
