@@ -14,28 +14,31 @@ Status](https://ci.appveyor.com/api/projects/status/github/ropensci/epubr?branch
 
 ## The Premise
 
-This package calculates “The Bill Miller Problem” from Leonard
-Mlodinow’s “The Drunkard’s Walk: *How Randomness Rules Our Lives*”.
+This package calculates “The Bill Miller Problem” from *The Drunkard’s
+Walk: How Randomness Rules Our Lives*, the book written by Leonard
+Mlodinow.
 
 The premise of this story goes that Bill Miller (financier) was an
 amazing stock picker after having performed incredibly well - beating
-the market over 15 consecutive years. As a result, he was celebrated and
-acclaimed by the likes of Forbes and others, who claimed that the
-likelihood of his ability to perform this well was 1 in 32,768. Dr.,
-Mlodinow ups this likelihood, stating that the probability that any 1
-person among 1000 who started “tossing coins” (i.e. picking stocks) was
-closer to 3%.
+the market - defined as outperforming the S&P500 - each year over 15
+consecutive years. As a result, he was celebrated and acclaimed by the
+likes of Forbes and others, who claimed that the likelihood of his
+ability to perform this well was 1 in 32,768. Dr. Mlodinow ups this
+likelihood, stating that the probability that any 1 person among 1000
+who started “tossing coins” (i.e. picking stocks) was closer to 3%.
 
-Dr. Mlodinow then further ups the probability, considering the
-likelihood that any 1 person over a 40 year period seeing that level of
-success, defined as beating the market for 15 years in a row or longer,
-is roughly 3 out of 4, or 75%.
+Dr. Mlodinow then further refines this calculation by considering the
+scenario of beating the market 15 years in a row or longer given some 40
+year period; i.e. given a 40 year period and 1000 traders, what is the
+probability that at least 1 person will obtain a winning streak of at
+least 15 years. Based on this refinement, Dr. Mlodinow claims the odds
+are roughly 3 out of 4, or 75%.
 
 **The resulting likelihood for any one person to beat the market within
 a definite start and stop time of at least 15 years in a single 40 year
-period, while larger than the 3% of his second calculation, is much
-smaller than the final proposed result of \~75%, which this calculates
-at \~33%.**
+period, while larger than the 3% of his first calculation, is much
+smaller than the final proposed result of \~75%, which this package has
+been built to answer and results in a value of \~33%.**
 
 ## The Math
 
@@ -126,12 +129,12 @@ Run a simulation on the problem, and return the set of resulting data
 sim_data <- run_simulation(iters = 5000)
 tail(sim_data)
 #>      iteration applicable_trials prob_of_zero
-#> 4995      4995                 1     0.673674
-#> 4996      4996                 1     0.673539
-#> 4997      4997                 0     0.673604
-#> 4998      4998                 0     0.673669
-#> 4999      4999                 0     0.673735
-#> 5000      5000                 0     0.673800
+#> 4995      4995                 0     0.660460
+#> 4996      4996                 0     0.660528
+#> 4997      4997                 0     0.660596
+#> 4998      4998                 0     0.660664
+#> 4999      4999                 1     0.660532
+#> 5000      5000                 0     0.660600
 ```
 
 Plot the probability convergence of the simulation results
@@ -144,9 +147,9 @@ Calculate the probability of obtaining zero streaks…
 ``` r
 tail(sim_data, n = 1)
 #>      iteration applicable_trials prob_of_zero
-#> 5000      5000                 0       0.6738
+#> 5000      5000                 0       0.6606
 nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6738
+#> [1] 0.6606
 ```
 
 …followed by the probability of at least 1 streak.
@@ -154,5 +157,5 @@ nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
 ``` r
 # Probability of at least 1 streak; i.e. 1 - P(0)
 1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3262
+#> [1] 0.3394
 ```

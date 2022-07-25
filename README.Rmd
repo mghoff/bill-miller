@@ -23,13 +23,14 @@ knitr::opts_chunk$set(
 
 ## The Premise
 
-This package calculates "The Bill Miller Problem" from Leonard Mlodinow's "The Drunkard's Walk: *How Randomness Rules Our Lives*".
+This package calculates "The Bill Miller Problem" from *The Drunkard's Walk: How Randomness Rules Our Lives*, the book written
+by Leonard Mlodinow.
 
-The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768. Dr., Mlodinow ups this likelihood, stating that the probability that any 1 person among 1000 who started "tossing coins" (i.e. picking stocks) was closer to 3%.
+The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market - defined as outperforming the S&P500 - each year over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768. Dr. Mlodinow ups this likelihood, stating that the probability that any 1 person among 1000 who started "tossing coins" (i.e. picking stocks) was closer to 3%.
 
-Dr. Mlodinow then further ups the probability, considering the likelihood that any 1 person over a 40 year period seeing that level of success, defined as beating the market for 15 years in a row or longer, is roughly 3 out of 4, or 75%.
+Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years in a row or longer given some 40 year period; i.e. given a 40 year period and 1000 traders, what is the probability that at least 1 person will obtain a winning streak of at least 15 years. Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%.
 
-**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger than the 3% of his second calculation, is much smaller than the final proposed result of ~75%, which this calculates at ~33%.**
+**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger than the 3% of his first calculation, is much smaller than the final proposed result of ~75%, which this package has been built to answer and results in a value of ~33%.**
 
 ## The Math
 
