@@ -14,28 +14,42 @@ Status](https://ci.appveyor.com/api/projects/status/github/ropensci/epubr?branch
 
 ## The Premise
 
-This package calculates “The Bill Miller Problem” from Leonard
-Mlodinow’s “The Drunkard’s Walk: *How Randomness Rules Our Lives*”.
+This package provides functions & documentation for solving “The Bill
+Miller Problem” presented within the book entitled *The Drunkard’s Walk:
+How Randomness Rules Our Lives*, written by Leonard Mlodinow. More
+generally, the functions herein can be used to solve for, either
+analytically or by simulation, the likelihood of obtaining a winning
+streak of given length within a given number of attempts, attempted by a
+specified number of individuals.
 
 The premise of this story goes that Bill Miller (financier) was an
 amazing stock picker after having performed incredibly well - beating
-the market over 15 consecutive years. As a result, he was celebrated and
-acclaimed by the likes of Forbes and others, who claimed that the
-likelihood of his ability to perform this well was 1 in 32,768. Dr.,
-Mlodinow ups this likelihood, stating that the probability that any 1
-person among 1000 who started “tossing coins” (i.e. picking stocks) was
-closer to 3%.
+the market - defined as outperforming the S&P500 - each year over 15
+consecutive years. As a result, he was celebrated and acclaimed by the
+likes of Forbes and others, who claimed that the likelihood of his
+ability to perform this well was 1 in 32,768, or \~0.0032%, which is
+roughly true is one considers only the individual, Bill Miller, picking
+stocks.
 
-Dr. Mlodinow then further ups the probability, considering the
-likelihood that any 1 person over a 40 year period seeing that level of
-success, defined as beating the market for 15 years in a row or longer,
-is roughly 3 out of 4, or 75%.
+However, what Dr. Mlodinow understands is that there are many hedge
+funds all picking stocks and based on this fact, poses the question:
+“Out of 1000 stock pickers (coin tossers), what are the odds that 1 of
+them beats the market over 15 consecutive years?” The answer to which is
+roughly 3%.
+
+Dr. Mlodinow then further refines this calculation by considering the
+scenario of beating the market 15 years consecutively or longer over a
+40 year period; i.e. over 40 years and with 1000 traders, what is the
+probability that at least 1 trader will obtain a winning streak of at
+least 15 years with the odds of winning in a given year equal to 0.5.
+Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out
+of 4, or 75%; however, he provides no proof or evidence of this claim.
 
 **The resulting likelihood for any one person to beat the market within
 a definite start and stop time of at least 15 years in a single 40 year
-period, while larger the the 3% of his second calculation, is much
-smaller than the final proposed result of \~75%, which this calculates
-at \~33%.**
+period, while larger than the 3% of his first calculation, is much
+smaller than the final proposed result of \~75%, which this package has
+been built to answer and results in a value of \~33%.**
 
 ## The Math
 
@@ -53,7 +67,7 @@ which can be broken down recursively into the sum of terms:
 
 ![S\[n, k\] = p^k + ... = \\sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \\text{ for } 1 \\le j \\le k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
 
-which is provided by `oddsOfStreak`.
+which is provided by `odds_of_streak()`.
 
 For more information on the math behind this recursive odds calculation,
 see this [Ask A
@@ -62,23 +76,25 @@ post.
 
 #### Part 2:
 
-To calculate the likelihood that at least x out of M people will obtain
-a streak of at least k Heads out of N coin tosses, one must perform the
+To calculate the likelihood that at least k out of M people will obtain
+a streak of at least j heads out of N coin tosses, one must perform the
 following:
 
-1.  Calculate the pdf:
+1.  Calculate the PDF:
 
-![\\mathrm{P}(X=x)={M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%3Dx%29%3D%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X=x)={M \choose x}p^{x}(1-p)^{(M-x)}")
+![\\mathrm{P}(M = k) = {M \\choose k}p^{k}(1-p)^{(M-k)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D "\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}")
 
-2.  Calculate the cdf:
+Again, this is provided by `odds_of_streak()`.
+
+2.  Then, calculate the CDF:
 
 ![\\mathrm{P}(X \\le x) = \\sum\_{i=0,x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
 
-3.  Finally, calculate:
+3.  And, finally, calculate the final result:
 
-![\\mathrm{P}(X > x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
+![\\mathrm{P}(X \> x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
 
-which is provided by `probOfAtLeastK`.
+which is provided by `prob_of_at_least_k()`.
 
 ## Example 1: Mathematical Proof
 
@@ -88,34 +104,35 @@ Load Package…
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 5 heads out of 10 coin
-tosses given that the probability p (q) of heads (tails) is fair, i.e. p
-= q = 0.5.
+Calculate the likelihood of obtaining a winning streak of at least 3
+heads out of 5 coin tosses given that the probability p (q) of heads
+(tails) is fair, i.e. p = q = 0.5.
 
 ``` r
-pS <- oddsOfStreak(numCoins = 10, minHeads = 5, probHeads = 0.5)
+pS <- odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
 pS
-#> [1] 0.109375
+#> [1] 0.25
 
-# # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
+### NOTE:
+# Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
 # tictoc::tic()
-# oddsOfStreak(40, 15, 0.5) # p = 0.000411981; NOTE: for the @Risk simulation, we got 0.0002 - i.e. this is within bounds.
+# odds_of_streak(40, 15, 0.5) = 0.000411981
 # tictoc::toc() # 24713.89 sec elapsed (6.865 hours)
 ```
 
-Now calculate the probability that at least 1 out of 5 people will
-obtain such a streak given that the probability of said streak is
-0.109375.
+Now calculate the probability that at least 1 person out of 8 people
+will obtain such a winning streak of 3 heads given that the probability
+of said streak is 0.25.
 
 ``` r
-pK <- probOfAtLeastK(N = 5, K = 1, P = pS)
+pK <- prob_of_at_least_k(N = 8, K = 1, p = pS)
 pK
-#> [1] 0.4396306
+#> [1] 0.8998871
 
-# # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
-# # Result (1): P(X = k) where k = 0
-# choose(n, k)*(p**k)*((1-p)**(n-k))
-# # P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
+### NOTE:
+# Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
+# Result (1): P(X = k) where k = 0 is calculated as choose(n, k)*(p**k)*((1-p)**(n-k))
+# P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
 ```
 
 ## Example 2: Simulation
@@ -123,36 +140,27 @@ pK
 Run a simulation on the problem, and return the set of resulting data
 
 ``` r
-sim_data <- run_simulation(iters = 5000)
+set.seed(1234)
+sim_data <- run_simulation(
+  iters = 5000,
+  trials = 8,
+  sample_space = c(0, 1),
+  sample_size = 5,
+  run_value = 1,
+  run_length = 3
+  )
+
 tail(sim_data)
-#>      iteration applicable_trials prob_of_zero
-#> 4995      4995                 0     0.664264
-#> 4996      4996                 0     0.664331
-#> 4997      4997                 1     0.664199
-#> 4998      4998                 0     0.664266
-#> 4999      4999                 3     0.664133
-#> 5000      5000                 0     0.664200
+#>      iterations applicable_trials prob_of_zero prob_of_ge_one
+#> 4995       4995                 0    0.1017017      0.8982983
+#> 4996       4996                 2    0.1016813      0.8983187
+#> 4997       4997                 0    0.1018611      0.8981389
+#> 4998       4998                 1    0.1018407      0.8981593
+#> 4999       4999                 1    0.1018204      0.8981796
+#> 5000       5000                 0    0.1020000      0.8980000
 ```
 
 Plot the probability convergence of the simulation results
 <p>
 <img src="man/figures/README-fig1.png" class="centering" width="80%">
 </p>
-
-Calculate the probability of obtaining zero streaks…
-
-``` r
-tail(sim_data, n = 1)
-#>      iteration applicable_trials prob_of_zero
-#> 5000      5000                 0       0.6642
-nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6642
-```
-
-…followed by the probability of at least 1 streak.
-
-``` r
-# Probability of at least 1 streak; i.e. 1 - P(0)
-1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3358
-```
