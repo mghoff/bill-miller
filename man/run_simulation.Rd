@@ -29,7 +29,7 @@ run_simulation(
 \value{
 data frame with
 \itemize{
-\item 3 columns: \code{iterations}, \code{applicable_trials}, & \code{prob_of_zero}; and
+\item 4 columns: \code{iterations}, \code{applicable_trials}, \code{prob_of_zero}, & \code{prob_of_ge_one}; and
 \item the number of rows to be determined by \code{iters}
 }
 }

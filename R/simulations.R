@@ -92,7 +92,7 @@ count_runs <- function(trials = 100,
 #' @param run_length number, see \code{count_runs()}
 #'
 #' @return data frame with
-#' * 3 columns: \code{iterations}, \code{applicable_trials}, & \code{prob_of_zero}; and
+#' * 4 columns: \code{iterations}, \code{applicable_trials}, \code{prob_of_zero}, & \code{prob_of_ge_one}; and
 #' * the number of rows to be determined by \code{iters}
 #' @export
 #'
@@ -108,6 +108,7 @@ run_simulation <- function(iters = 100,
     iterations = 1:iters,
     applicable_trials = rep(NA_real_, iters),
     prob_of_zero = rep(NA_real_, iters),
+    prob_of_ge_one = rep(NA_real_, iters),
     stringsAsFactors = FALSE
   )
   for (i in 1:iters) {
@@ -119,6 +120,7 @@ run_simulation <- function(iters = 100,
       run_length = run_length
     )
     d[i, 3] <- nrow(d[which(d[, 2] == 0), ]) / i
+    d[i, 4] <- 1 - d[i, 3]
   }
   return(d)
 }
