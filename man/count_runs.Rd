@@ -4,13 +4,7 @@
 \alias{count_runs}
 \title{Count Runs}
 \usage{
-count_runs(
-  trials = 100,
-  sample_space = c(0, 1),
-  sample_size = 5,
-  run_value = 1,
-  run_length = 3
-)
+count_runs(trials, sample_space, sample_size, run_value, run_length)
 }
 \arguments{
 \item{trials}{number, number of times flipping a coin n times.}
@@ -32,5 +26,11 @@ Out of a given number of trials flipping a fair coin (p = 0.5) n times, count th
 times a run (streak) of length k occurs
 }
 \examples{
-run_count <- count_runs()
+count_runs(
+ trials = 8,
+ sample_space = c(0, 1),
+ sample_size = 5,
+ run_value = 1,
+ run_length = 3
+)
 }

@@ -10,10 +10,10 @@
 #' @export
 #'
 #' @examples
-#' s <- sample(c("A", "B"), size = 10, replace = TRUE)
+#' s <- sample(c(0, 1), size = 10, replace = TRUE)
 #' print(s)
 #'
-#' find_longest_run(sample = s, run_value = "A")
+#' find_longest_run(sample = s, run_value = 1)
 find_longest_run <- function(sample, run_value) {
   if (!(run_value %in% sample)) {
     return(0)
@@ -49,12 +49,18 @@ find_longest_run <- function(sample, run_value) {
 #' @export
 #'
 #' @examples
-#' run_count <- count_runs()
-count_runs <- function(trials = 100,
-                       sample_space = c(0, 1),
-                       sample_size = 5,
-                       run_value = 1,
-                       run_length = 3) {
+#' count_runs(
+#'  trials = 8,
+#'  sample_space = c(0, 1),
+#'  sample_size = 5,
+#'  run_value = 1,
+#'  run_length = 3
+#' )
+count_runs <- function(trials,
+                       sample_space,
+                       sample_size,
+                       run_value,
+                       run_length) {
   if (run_length > sample_size) stop("run_length must be less than or equal to sample_size.")
   if (!(run_value %in% sample_space)) stop("run_value must be a member of the sample_space.")
 
@@ -97,13 +103,22 @@ count_runs <- function(trials = 100,
 #' @export
 #'
 #' @examples
-#' tail(run_simulation())
-run_simulation <- function(iters = 100,
-                           trials = 100,
-                           sample_space = c(0, 1),
-                           sample_size = 5,
-                           run_value = 1,
-                           run_length = 3) {
+#' tail(
+#'  run_simulation(
+#'    iters = 100,
+#'    trials = 8,
+#'    sample_space = c(0, 1),
+#'    sample_size = 5,
+#'    run_value = 1,
+#'    run_length = 3
+#'  )
+#' )
+run_simulation <- function(iters,
+                           trials,
+                           sample_space,
+                           sample_size,
+                           run_value,
+                           run_length) {
   d <- data.frame(
     iterations = 1:iters,
     applicable_trials = rep(NA_real_, iters),

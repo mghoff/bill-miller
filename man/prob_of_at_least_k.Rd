@@ -21,5 +21,5 @@ Calculate the probability of the occurrence of at least K-streaks out of N-event
 given the odds of stated streak.
 }
 \examples{
-prob_of_at_least_k(N = 100, K = 1, p = odds_of_streak())
+prob_of_at_least_k(N = 8, K = 1, p = odds_of_streak())
 }

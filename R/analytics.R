@@ -14,8 +14,8 @@
 #' @export
 #'
 #' @examples
-#' odds_of_streak(num_coins = 10, min_heads = 3, prob_heads = 0.5)
-odds_of_streak <- function(num_coins = 10, min_heads = 5, prob_heads = 0.5, .saved = NULL) {
+#' odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
+odds_of_streak <- function(num_coins, min_heads, prob_heads, .saved = NULL) {
   # Computes the probability (i.e. S[n, k]) of getting a run of min_heads
   # i.e. the odds of getting K or more heads in a row out of
   # N independent coin tosses where p is the probability of getting a Heads
@@ -72,7 +72,7 @@ odds_of_streak <- function(num_coins = 10, min_heads = 5, prob_heads = 0.5, .sav
 #' @export
 #'
 #' @examples
-#' prob_of_at_least_k(N = 100, K = 1, p = odds_of_streak())
+#' prob_of_at_least_k(N = 8, K = 1, p = odds_of_streak())
 prob_of_at_least_k <- function(N, K, p) {
   L <- 0
   for (k in K:N) {

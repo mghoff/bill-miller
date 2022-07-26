@@ -19,8 +19,8 @@ Finds the single longest run (streak) of a specified value
 contained within a provided vector
 }
 \examples{
-s <- sample(c("A", "B"), size = 10, replace = TRUE)
+s <- sample(c(0, 1), size = 10, replace = TRUE)
 print(s)
 
-find_longest_run(sample = s, run_value = "A")
+find_longest_run(sample = s, run_value = 1)
 }

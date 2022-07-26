@@ -4,7 +4,7 @@
 \alias{odds_of_streak}
 \title{Calculate the Odds of a Streak}
 \usage{
-odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5, .saved = NULL)
+odds_of_streak(num_coins, min_heads, prob_heads, .saved = NULL)
 }
 \arguments{
 \item{num_coins}{integer, total number of coin flips}
@@ -25,5 +25,5 @@ Calculate the odds of a single streak of at least k heads out of n coin tosses g
 the probability of heads (tails) is p (q = 1-p).
 }
 \examples{
-odds_of_streak(num_coins = 10, min_heads = 3, prob_heads = 0.5)
+odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
 }

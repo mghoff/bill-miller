@@ -4,14 +4,7 @@
 \alias{run_simulation}
 \title{Run Simulation}
 \usage{
-run_simulation(
-  iters = 100,
-  trials = 100,
-  sample_space = c(0, 1),
-  sample_size = 5,
-  run_value = 1,
-  run_length = 3
-)
+run_simulation(iters, trials, sample_space, sample_size, run_value, run_length)
 }
 \arguments{
 \item{iters}{number, number of simulation iterations}
@@ -46,5 +39,14 @@ This function outputs a data frame with three columns:
 3.) the cumulative probability of obtaining zero streaks.
 }
 \examples{
-tail(run_simulation())
+tail(
+ run_simulation(
+   iters = 100,
+   trials = 8,
+   sample_space = c(0, 1),
+   sample_size = 5,
+   run_value = 1,
+   run_length = 3
+ )
+)
 }
