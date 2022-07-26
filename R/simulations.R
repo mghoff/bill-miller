@@ -40,6 +40,7 @@ find_longest_run <- function(sample, run_value) {
 #'
 #' @param trials number, number of times flipping a coin n times.
 #' @param sample_space vector, vector of unique values from which to sample.
+#' @param sample_probs vector, vector of probabilities equal in length to \code{sample_space}.
 #' @param sample_size number, size of sample to generate from \code{sample_space}; e.g. n coin flips.
 #' @param run_value number or character, the value on which to count sequential occurrences.
 #' @param run_length number, length of streak of interest value.
@@ -58,16 +59,21 @@ find_longest_run <- function(sample, run_value) {
 #' )
 count_runs <- function(trials,
                        sample_space,
+                       sample_probs = NULL,
                        sample_size,
                        run_value,
                        run_length) {
   if (run_length > sample_size) stop("run_length must be less than or equal to sample_size.")
   if (!(run_value %in% sample_space)) stop("run_value must be a member of the sample_space.")
+  if (!is.null(sample_probs)) {
+    if (length(sample_probs) != length(sample_space)) stop("sample_probs must be same length as sample_space.")
+    if (sum(sample_probs) != 1) stop("sample_probs must sum to 1.")
+  }
 
   total_applicable_runs <- 0
   for (t in 1:trials) {
     lr <- find_longest_run(
-      sample = sample(sample_space, size = sample_size, replace = TRUE),
+      sample = sample(sample_space, size = sample_size, replace = TRUE, prob = sample_probs),
       run_value = run_value
     )
     if (lr >= run_length) {
@@ -90,12 +96,13 @@ count_runs <- function(trials,
 #' 2.) the count of applicable trials in that iteration, and
 #' 3.) the cumulative probability of obtaining zero streaks.
 #'
-#' @param iters number, number of simulation iterations
-#' @param trials number, see \code{count_runs()}
-#' @param sample_space vector, see \code{count_runs()}
-#' @param sample_size number, see \code{count_runs()}
-#' @param run_value number, see \code{count_runs()}
-#' @param run_length number, see \code{count_runs()}
+#' @param iters number, number of simulation iterations.
+#' @param trials number, see \code{count_runs()}.
+#' @param sample_space vector, see \code{count_runs()}.
+#' @param sample_probs vector, see \code{count_runs()}.
+#' @param sample_size number, see \code{count_runs()}.
+#' @param run_value number, see \code{count_runs()}.
+#' @param run_length number, see \code{count_runs()}.
 #'
 #' @return data frame with
 #' * 4 columns: \code{iterations}, \code{applicable_trials}, \code{prob_of_zero}, & \code{prob_of_ge_one}; and
@@ -116,6 +123,7 @@ count_runs <- function(trials,
 run_simulation <- function(iters,
                            trials,
                            sample_space,
+                           sample_probs = NULL,
                            sample_size,
                            run_value,
                            run_length) {
@@ -130,6 +138,7 @@ run_simulation <- function(iters,
     d[i, 2] <- count_runs(
       trials = trials,
       sample_space = sample_space,
+      sample_probs = sample_probs,
       sample_size = sample_size,
       run_value = run_value,
       run_length = run_length

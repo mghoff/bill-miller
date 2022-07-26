@@ -4,12 +4,21 @@
 \alias{count_runs}
 \title{Count Runs}
 \usage{
-count_runs(trials, sample_space, sample_size, run_value, run_length)
+count_runs(
+  trials,
+  sample_space,
+  sample_probs = NULL,
+  sample_size,
+  run_value,
+  run_length
+)
 }
 \arguments{
 \item{trials}{number, number of times flipping a coin n times.}
 
 \item{sample_space}{vector, vector of unique values from which to sample.}
+
+\item{sample_probs}{vector, vector of probabilities equal in length to \code{sample_space}.}
 
 \item{sample_size}{number, size of sample to generate from \code{sample_space}; e.g. n coin flips.}
 

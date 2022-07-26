@@ -4,20 +4,30 @@
 \alias{run_simulation}
 \title{Run Simulation}
 \usage{
-run_simulation(iters, trials, sample_space, sample_size, run_value, run_length)
+run_simulation(
+  iters,
+  trials,
+  sample_space,
+  sample_probs = NULL,
+  sample_size,
+  run_value,
+  run_length
+)
 }
 \arguments{
-\item{iters}{number, number of simulation iterations}
+\item{iters}{number, number of simulation iterations.}
 
-\item{trials}{number, see \code{count_runs()}}
+\item{trials}{number, see \code{count_runs()}.}
 
-\item{sample_space}{vector, see \code{count_runs()}}
+\item{sample_space}{vector, see \code{count_runs()}.}
 
-\item{sample_size}{number, see \code{count_runs()}}
+\item{sample_probs}{vector, see \code{count_runs()}.}
 
-\item{run_value}{number, see \code{count_runs()}}
+\item{sample_size}{number, see \code{count_runs()}.}
 
-\item{run_length}{number, see \code{count_runs()}}
+\item{run_value}{number, see \code{count_runs()}.}
+
+\item{run_length}{number, see \code{count_runs()}.}
 }
 \value{
 data frame with
