@@ -4,12 +4,12 @@
 \alias{find_longest_run}
 \title{Calculate the Longest Run}
 \usage{
-find_longest_run(sample, run_value = 1)
+find_longest_run(sample, run_value)
 }
 \arguments{
 \item{sample}{numeric or character vector.}
 
-\item{run_value}{number or character, the value on which to count sequential occurrences.}
+\item{run_value}{number or character, the value for which to count sequential occurrences.}
 }
 \value{
 number, the longest run (streak) of values
@@ -19,8 +19,8 @@ Finds the single longest run (streak) of a specified value
 contained within a provided vector
 }
 \examples{
-s <- sample(c(0, 1), size = 10, replace = TRUE)
+s <- sample(c("A", "B"), size = 10, replace = TRUE)
 print(s)
 
-find_longest_run(sample = s, run_value = 1)
+find_longest_run(sample = s, run_value = "A")
 }

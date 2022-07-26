@@ -5,23 +5,23 @@
 \title{Count Runs}
 \usage{
 count_runs(
-  trials = 1000,
+  trials = 10,
   sample_space = c(0, 1),
-  sample_size = 40,
+  sample_size = 5,
   run_value = 1,
-  run_length = 15
+  run_length = 3
 )
 }
 \arguments{
-\item{trials}{number, number of attempts to flip a coin n times.}
+\item{trials}{number, number of times flipping a coin n times.}
 
 \item{sample_space}{vector, vector of unique values from which to sample.}
 
-\item{sample_size}{number, size of sample to generate from \code{sample_space}.}
+\item{sample_size}{number, size of sample to generate from \code{sample_space}; e.g. n coin flips}
 
 \item{run_value}{number or character, the value on which to count sequential occurrences.}
 
-\item{run_length}{number, length of streak of interest.}
+\item{run_length}{number, length of streak of interest value.}
 }
 \value{
 number

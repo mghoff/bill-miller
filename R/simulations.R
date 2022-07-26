@@ -4,33 +4,32 @@
 #' contained within a provided vector
 #'
 #' @param sample numeric or character vector.
-#' @param run_value number or character, the value on which to count sequential occurrences.
+#' @param run_value number or character, the value for which to count sequential occurrences.
 #'
 #' @return number, the longest run (streak) of values
 #' @export
 #'
 #' @examples
-#' s <- sample(c(0, 1), size = 10, replace = TRUE)
+#' s <- sample(c("A", "B"), size = 10, replace = TRUE)
 #' print(s)
 #'
-#' find_longest_run(sample = s, run_value = 1)
-find_longest_run <- function(sample, run_value = 1) {
-  # Arg Check
-  sample_vals <- unique(sample)
-  if (!(run_value %in% sample_vals)) stop("run_value not found in sample")
-
-  # Count
-  run <- max_run <- 0
-  for (i in 2:length(sample)) {
-    if (sample[i] == run_value && sample[i] == sample[i - 1]) {
-      run <- run + 1
-      max_run <- max(max_run, run)
-    } else {
-      run <- 0
-      max_run <- max(max_run, run)
+#' find_longest_run(sample = s, run_value = "A")
+find_longest_run <- function(sample, run_value) {
+  if (!(run_value %in% sample)) {
+    return(0)
+  } else {
+    run <- max_run <- 1
+    for (i in 2:length(sample)) {
+      if (sample[i] == run_value && sample[i] == sample[i - 1]) {
+        run <- run + 1
+        max_run <- max(max_run, run)
+      } else {
+        run <- 1
+        max_run <- max(max_run, run)
+      }
     }
+    return(max_run)
   }
-  return(max_run + 1)
 }
 
 
@@ -39,22 +38,22 @@ find_longest_run <- function(sample, run_value = 1) {
 #' Out of a given number of trials flipping a fair coin (p = 0.5) n times, count the number of
 #' times a run (streak) of length k occurs
 #'
-#' @param trials number, number of attempts to flip a coin n times.
+#' @param trials number, number of times flipping a coin n times.
 #' @param sample_space vector, vector of unique values from which to sample.
-#' @param sample_size number, size of sample to generate from \code{sample_space}.
+#' @param sample_size number, size of sample to generate from \code{sample_space}; e.g. n coin flips
 #' @param run_value number or character, the value on which to count sequential occurrences.
-#' @param run_length number, length of streak of interest.
+#' @param run_length number, length of streak of interest value.
 #'
 #' @return number
 #' @export
 #'
 #' @examples
 #' count_runs()
-count_runs <- function(trials = 1000,
+count_runs <- function(trials = 10,
                        sample_space = c(0, 1),
-                       sample_size = 40,
+                       sample_size = 5,
                        run_value = 1,
-                       run_length = 15) {
+                       run_length = 3) {
   x <- NULL
   total_applicable_runs <- 0
   for (t in 1:trials) {
@@ -101,7 +100,13 @@ run_simulation <- function(iters = 100,
   d <- data.frame(stringsAsFactors = FALSE)
   for (i in 1:iters) {
     d[i, 1] <- i
-    d[i, 2] <- count_runs(trials, sample_space, sample_size, run_value, run_length)
+    d[i, 2] <- count_runs(
+      trials = trials,
+      sample_space = sample_space,
+      sample_size = sample_size,
+      run_value = run_value,
+      run_length = run_length
+      )
     d[i, 3] <- round(nrow(d[which(d[, 2] == 0), ]) / nrow(d), 6)
   }
   names(d) <- c("iteration", "applicable_trials", "prob_of_zero")
