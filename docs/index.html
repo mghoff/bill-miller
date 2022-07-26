@@ -125,10 +125,9 @@
 </div>
 <p>which is provided by <code><a href="reference/prob_of_at_least_k.html">prob_of_at_least_k()</a></code>.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="example-1-mathematical-proof">Example 1: Mathematical Proof<a class="anchor" aria-label="anchor" href="#example-1-mathematical-proof"></a>
-</h2>
+<div class="section level3">
+<h3 id="example-1-mathematical-proof">Example 1: Mathematical Proof<a class="anchor" aria-label="anchor" href="#example-1-mathematical-proof"></a>
+</h3>
 <p>Load Package…</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/mghoff/billmillr" class="external-link">billmillr</a></span><span class="op">)</span></span></code></pre></div>
@@ -154,9 +153,9 @@
 <span><span class="co"># Result (1): P(X = k) where k = 0 is calculated as choose(n, k)*(p**k)*((1-p)**(n-k))</span></span>
 <span><span class="co"># P(X = 0) ~= 0.66 =&gt; P(X &gt; 0) ~= 1 - 0.66 = 0.33</span></span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="example-2-simulation">Example 2: Simulation<a class="anchor" aria-label="anchor" href="#example-2-simulation"></a>
-</h2>
+<div class="section level3">
+<h3 id="example-2-simulation">Example 2: Simulation<a class="anchor" aria-label="anchor" href="#example-2-simulation"></a>
+</h3>
 <p>Run a simulation on the problem, and return the set of resulting data</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">1234</span><span class="op">)</span></span>
@@ -180,6 +179,7 @@
 Plot the probability convergence of the simulation results
 <p>
 <img src="reference/figures/README-fig1.png" class="centering" width="80%"></p>
+</div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
