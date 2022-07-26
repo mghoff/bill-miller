@@ -73,7 +73,7 @@ $\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
 which is provided by `prob_of_at_least_k()`.
 
 
-## Example 1: Mathematical Proof
+### Example 1: Mathematical Proof
 
 Load Package...
 
@@ -109,7 +109,7 @@ pK
 ```
 
 
-## Example 2: Simulation
+### Example 2: Simulation
 
 Run a simulation on the problem, and return the set of resulting data
 ```{r run-simulation}
