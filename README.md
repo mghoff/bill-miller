@@ -111,7 +111,7 @@ obtain such a streak given that the probability of said streak is
 0.109375.
 
 ``` r
-pK <- prob_of_at_least_k(N = 5, K = 1, P = pS)
+pK <- prob_of_at_least_k(N = 5, K = 1, p = pS)
 pK
 #> [1] 0.4396306
 
@@ -128,13 +128,13 @@ Run a simulation on the problem, and return the set of resulting data
 ``` r
 sim_data <- run_simulation(iters = 5000)
 tail(sim_data)
-#>      iteration applicable_trials prob_of_zero
-#> 4995      4995                 0     0.660460
-#> 4996      4996                 0     0.660528
-#> 4997      4997                 0     0.660596
-#> 4998      4998                 0     0.660664
-#> 4999      4999                 1     0.660532
-#> 5000      5000                 0     0.660600
+#>      iterations applicable_trials prob_of_zero
+#> 4995       4995                 1    0.6598599
+#> 4996       4996                 0    0.6599279
+#> 4997       4997                 0    0.6599960
+#> 4998       4998                 0    0.6600640
+#> 4999       4999                 0    0.6601320
+#> 5000       5000                 0    0.6602000
 ```
 
 Plot the probability convergence of the simulation results
@@ -146,10 +146,10 @@ Calculate the probability of obtaining zero streaks…
 
 ``` r
 tail(sim_data, n = 1)
-#>      iteration applicable_trials prob_of_zero
-#> 5000      5000                 0       0.6606
+#>      iterations applicable_trials prob_of_zero
+#> 5000       5000                 0       0.6602
 nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6606
+#> [1] 0.6602
 ```
 
 …followed by the probability of at least 1 streak.
@@ -157,5 +157,5 @@ nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
 ``` r
 # Probability of at least 1 streak; i.e. 1 - P(0)
 1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3394
+#> [1] 0.3398
 ```

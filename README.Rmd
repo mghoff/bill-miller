@@ -95,7 +95,7 @@ Now calculate the probability that at least 1 out of 5 people will obtain
 such a streak given that the probability of said streak is `r pS`.
 
 ```{r prob-at-least-k}
-pK <- prob_of_at_least_k(N = 5, K = 1, P = pS)
+pK <- prob_of_at_least_k(N = 5, K = 1, p = pS)
 pK
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
