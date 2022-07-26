@@ -27,7 +27,11 @@ run_simulation(
 \item{run_length}{number, see \code{count_runs()}}
 }
 \value{
-data frame with 3 columns; the number of rows determined by \code{iters}
+data frame with
+\itemize{
+\item 3 columns: \code{iterations}, \code{applicable_trials}, & \code{prob_of_zero}; and
+\item the number of rows to be determined by \code{iters}
+}
 }
 \description{
 Iterate over \code{count_runs()}, counting the number of applicable trials where

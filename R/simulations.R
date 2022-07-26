@@ -40,26 +40,31 @@ find_longest_run <- function(sample, run_value) {
 #'
 #' @param trials number, number of times flipping a coin n times.
 #' @param sample_space vector, vector of unique values from which to sample.
-#' @param sample_size number, size of sample to generate from \code{sample_space}; e.g. n coin flips
+#' @param sample_size number, size of sample to generate from \code{sample_space}; e.g. n coin flips.
 #' @param run_value number or character, the value on which to count sequential occurrences.
 #' @param run_length number, length of streak of interest value.
 #'
-#' @return number
+#' @return number, the total number of applicable runs; i.e. the number of runs where
+#' the length of the run is greater than or equal to the specified \code{run_length}.
 #' @export
 #'
 #' @examples
-#' count_runs()
-count_runs <- function(trials = 10,
+#' run_count <- count_runs()
+count_runs <- function(trials = 100,
                        sample_space = c(0, 1),
                        sample_size = 5,
                        run_value = 1,
                        run_length = 3) {
-  x <- NULL
+  if (run_length > sample_size) stop("run_length must be less than or equal to sample_size.")
+  if (!(run_value %in% sample_space)) stop("run_value must be a member of the sample_space.")
+
   total_applicable_runs <- 0
   for (t in 1:trials) {
-    x[t] <- find_longest_run(sample = sample(sample_space, size = sample_size, replace = TRUE),
-                             run_value = run_value)
-    if (x[t] >= run_length) {
+    lr <- find_longest_run(
+      sample = sample(sample_space, size = sample_size, replace = TRUE),
+      run_value = run_value
+      )
+    if (lr >= run_length) {
       total_applicable_runs <- total_applicable_runs + 1
     }
   }
@@ -86,7 +91,9 @@ count_runs <- function(trials = 10,
 #' @param run_value number, see \code{count_runs()}
 #' @param run_length number, see \code{count_runs()}
 #'
-#' @return data frame with 3 columns; the number of rows determined by \code{iters}
+#' @return data frame with
+#' * 3 columns: \code{iterations}, \code{applicable_trials}, & \code{prob_of_zero}; and
+#' * the number of rows to be determined by \code{iters}
 #' @export
 #'
 #' @examples
@@ -97,9 +104,13 @@ run_simulation <- function(iters = 100,
                            sample_size = 40,
                            run_value = 1,
                            run_length = 15) {
-  d <- data.frame(stringsAsFactors = FALSE)
+  d <- data.frame(
+    iterations = 1:iters,
+    applicable_trials = rep(NA_real_, iters),
+    prob_of_zero = rep(NA_real_, iters),
+    stringsAsFactors = FALSE
+    )
   for (i in 1:iters) {
-    d[i, 1] <- i
     d[i, 2] <- count_runs(
       trials = trials,
       sample_space = sample_space,
@@ -107,8 +118,7 @@ run_simulation <- function(iters = 100,
       run_value = run_value,
       run_length = run_length
       )
-    d[i, 3] <- round(nrow(d[which(d[, 2] == 0), ]) / nrow(d), 6)
+    d[i, 3] <- nrow(d[which(d[, 2] == 0), ]) / i
   }
-  names(d) <- c("iteration", "applicable_trials", "prob_of_zero")
   return(d)
 }

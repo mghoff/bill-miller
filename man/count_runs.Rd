@@ -5,7 +5,7 @@
 \title{Count Runs}
 \usage{
 count_runs(
-  trials = 10,
+  trials = 100,
   sample_space = c(0, 1),
   sample_size = 5,
   run_value = 1,
@@ -17,19 +17,20 @@ count_runs(
 
 \item{sample_space}{vector, vector of unique values from which to sample.}
 
-\item{sample_size}{number, size of sample to generate from \code{sample_space}; e.g. n coin flips}
+\item{sample_size}{number, size of sample to generate from \code{sample_space}; e.g. n coin flips.}
 
 \item{run_value}{number or character, the value on which to count sequential occurrences.}
 
 \item{run_length}{number, length of streak of interest value.}
 }
 \value{
-number
+number, the total number of applicable runs; i.e. the number of runs where
+the length of the run is greater than or equal to the specified \code{run_length}.
 }
 \description{
 Out of a given number of trials flipping a fair coin (p = 0.5) n times, count the number of
 times a run (streak) of length k occurs
 }
 \examples{
-count_runs()
+run_count <- count_runs()
 }
