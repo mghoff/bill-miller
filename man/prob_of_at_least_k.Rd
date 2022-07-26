@@ -4,17 +4,17 @@
 \alias{prob_of_at_least_k}
 \title{Odds of at least K streaks}
 \usage{
-prob_of_at_least_k(N, K, P)
+prob_of_at_least_k(N, K, p)
 }
 \arguments{
-\item{N}{integer, total number of coin tossers}
+\item{N}{integer, total number of coin tossers.}
 
-\item{K}{integer, number of streaks}
+\item{K}{integer, number of streaks.}
 
-\item{P}{number, probability of a single streak}
+\item{p}{number, probability of a single streak.}
 }
 \value{
-a number
+a number between 0 and 1
 }
 \description{
 Calculate the probability of the occurrence of at least K-streaks out of N-events

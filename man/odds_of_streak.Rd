@@ -2,7 +2,7 @@
 % Please edit documentation in R/analytics.R
 \name{odds_of_streak}
 \alias{odds_of_streak}
-\title{Odds of a single streak}
+\title{Calculate the Odds of a Streak}
 \usage{
 odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5, .saved = NULL)
 }

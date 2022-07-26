@@ -1,4 +1,4 @@
-#' Odds of a single streak
+#' Calculate the Odds of a Streak
 #'
 #' Calculate the odds of a single streak of at least k heads out of n coin tosses given
 #' the probability of heads (tails) is p (q = 1-p).
@@ -64,23 +64,19 @@ odds_of_streak <- function(num_coins = 10, min_heads = 5, prob_heads = 0.5, .sav
 #' Calculate the probability of the occurrence of at least K-streaks out of N-events
 #' given the odds of stated streak.
 #'
-#' @param N integer, total number of coin tossers
-#' @param K integer, number of streaks
-#' @param P number, probability of a single streak
+#' @param N integer, total number of coin tossers.
+#' @param K integer, number of streaks.
+#' @param p number, probability of a single streak.
 #'
-#' @return a number
+#' @return a number between 0 and 1
 #' @export
 #'
 #' @examples
 #' prob_of_at_least_k(N = 100, K = 1, P = odds_of_streak())
-prob_of_at_least_k <- function(N, K, P) {
-  n <- N
-  k <- K
-  p <- P
-  l <- L <- 0
+prob_of_at_least_k <- function(N, K, p) {
+  L <- 0
   for (k in K:N) {
-    l <- choose(n, k) * (p**k) * ((1 - p)**(n - k))
-    L <- L + l
+    L <- L + choose(N, k) * (p**k) * ((1 - p)**(N - k))
   }
   return(L)
 }
