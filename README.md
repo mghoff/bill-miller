@@ -84,11 +84,13 @@ following:
 
 ![\\mathrm{P}(M = k) = {M \\choose k}p^{k}(1-p)^{(M-k)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D "\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}")
 
-2.  Calculate the CDF:
+Again, this is provided by `odds_of_streak()`.
+
+2.  Then, calculate the CDF:
 
 ![\\mathrm{P}(X \\le x) = \\sum\_{i=0,x} \\mathrm{pdf} \\text{ for } {i \\le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
 
-3.  Finally, calculate:
+3.  And, finally, calculate the final result:
 
 ![\\mathrm{P}(X \> x) = 1 - \\mathrm{P}(X \\le x) \\text{; i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)")
 
@@ -102,33 +104,35 @@ Load Package…
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 3 heads out of 5 coin
-tosses given that the probability p (q) of heads (tails) is fair, i.e. p
-= q = 0.5.
+Calculate the likelihood of obtaining a winning streak of at least 3
+heads out of 5 coin tosses given that the probability p (q) of heads
+(tails) is fair, i.e. p = q = 0.5.
 
 ``` r
 pS <- odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
 pS
 #> [1] 0.25
 
-# # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
+### NOTE:
+# Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
 # tictoc::tic()
-# oddsOfStreak(40, 15, 0.5) # p = 0.000411981; NOTE: for the @Risk simulation, we got 0.0002 - i.e. this is within bounds.
+# odds_of_streak(40, 15, 0.5) = 0.000411981
 # tictoc::toc() # 24713.89 sec elapsed (6.865 hours)
 ```
 
-Now calculate the probability that at least 1 out of 5 people will
-obtain such a streak given that the probability of said streak is 0.25.
+Now calculate the probability that at least 1 person out of 8 people
+will obtain such a winning streak of 3 heads given that the probability
+of said streak is 0.25.
 
 ``` r
 pK <- prob_of_at_least_k(N = 8, K = 1, p = pS)
 pK
 #> [1] 0.8998871
 
-# # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
-# # Result (1): P(X = k) where k = 0
-# choose(n, k)*(p**k)*((1-p)**(n-k))
-# # P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
+### NOTE:
+# Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
+# Result (1): P(X = k) where k = 0 is calculated as choose(n, k)*(p**k)*((1-p)**(n-k))
+# P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
 ```
 
 ## Example 2: Simulation
@@ -137,7 +141,15 @@ Run a simulation on the problem, and return the set of resulting data
 
 ``` r
 set.seed(1234)
-sim_data <- run_simulation(iters = 5000, trials = 8, sample_size = 5, run_length = 3)
+sim_data <- run_simulation(
+  iters = 5000,
+  trials = 8,
+  sample_space = c(0, 1),
+  sample_size = 5,
+  run_value = 1,
+  run_length = 3
+  )
+
 tail(sim_data)
 #>      iterations applicable_trials prob_of_zero prob_of_ge_one
 #> 4995       4995                 0    0.1017017      0.8982983
