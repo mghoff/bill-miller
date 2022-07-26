@@ -72,7 +72,7 @@ odds_of_streak <- function(num_coins = 10, min_heads = 5, prob_heads = 0.5, .sav
 #' @export
 #'
 #' @examples
-#' prob_of_at_least_k(N = 100, K = 1, P = odds_of_streak())
+#' prob_of_at_least_k(N = 100, K = 1, p = odds_of_streak())
 prob_of_at_least_k <- function(N, K, p) {
   L <- 0
   for (k in K:N) {
