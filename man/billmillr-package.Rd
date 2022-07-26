@@ -12,6 +12,7 @@ This package calculates the likelihood that any one trader out of n traders will
 Useful links:
 \itemize{
   \item \url{https://github.com/mghoff/billmillr}
+  \item \url{https://mghoff.github.io/billmillr/}
 }
 
 }

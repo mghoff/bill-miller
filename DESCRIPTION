@@ -1,6 +1,6 @@
 Package: billmillr
 Title: Rethinking the Bill Miller Problem
-Version: 0.2.0
+Version: 0.2.5
 Authors@R: 
     person("Matthew", "Hoff", , "matthew.g.hoff@gmail.com", role = c("aut", "cre"))
 Description: This package calculates the likelihood that any one trader
@@ -9,7 +9,8 @@ Description: This package calculates the likelihood that any one trader
     start and stop periods of such a k-years sequence given a t-years
     time period for the nth trader.
 License: MIT + file LICENSE
-URL: https://github.com/mghoff/billmillr
+URL: https://github.com/mghoff/billmillr,
+    https://mghoff.github.io/billmillr/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1

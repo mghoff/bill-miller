@@ -1,0 +1,13 @@
+url: https://mghoff.github.io/billmillr/
+template:
+  bootstrap: 5
+reference:
+- title: Functions for Analytics Solutions
+  contents:
+  - odds_of_streak
+  - prob_of_at_least_k
+- title: Functions for Simulation Solutions
+  contents:
+  - find_longest_run
+  - count_runs
+  - run_simulation
