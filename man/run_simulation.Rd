@@ -6,11 +6,11 @@
 \usage{
 run_simulation(
   iters = 100,
-  trials = 1000,
+  trials = 100,
   sample_space = c(0, 1),
-  sample_size = 40,
+  sample_size = 5,
   run_value = 1,
-  run_length = 15
+  run_length = 3
 )
 }
 \arguments{
