@@ -111,7 +111,7 @@ pK
 Run a simulation on the problem, and return the set of resulting data
 ```{r run-simulation}
 set.seed(1234)
-sim_data <- run_simulation(iters = 1000, trials = 8, sample_size = 5, run_length = 3)
+sim_data <- run_simulation(iters = 5000, trials = 8, sample_size = 5, run_length = 3)
 tail(sim_data)
 ```
 
