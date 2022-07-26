@@ -164,21 +164,3 @@ Plot the probability convergence of the simulation results
 <p>
 <img src="man/figures/README-fig1.png" class="centering" width="80%">
 </p>
-
-Calculate the probability of obtaining zero streaks…
-
-``` r
-tail(sim_data, n = 1)
-#>      iterations applicable_trials prob_of_zero prob_of_ge_one
-#> 5000       5000                 0        0.102          0.898
-nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.102
-```
-
-…followed by the probability of at least 1 streak.
-
-``` r
-# Probability of at least 1 streak; i.e. 1 - P(0)
-1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.898
-```
