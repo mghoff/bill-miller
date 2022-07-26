@@ -66,13 +66,17 @@ odds_of_streak <- function(num_coins, min_heads, prob_heads, .saved = NULL) {
 #'
 #' @param N integer, total number of coin tossers.
 #' @param K integer, number of streaks.
-#' @param p number, probability of a single streak.
+#' @param p number, value between 0 & 1 representing the probability of a single streak.
 #'
 #' @return a number between 0 and 1
 #' @export
 #'
 #' @examples
-#' prob_of_at_least_k(N = 8, K = 1, p = odds_of_streak())
+#' prob_of_at_least_k(
+#'  N = 8,
+#'  K = 1,
+#'  p = odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
+#' )
 prob_of_at_least_k <- function(N, K, p) {
   L <- 0
   for (k in K:N) {

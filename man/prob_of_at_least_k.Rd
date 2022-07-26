@@ -11,7 +11,7 @@ prob_of_at_least_k(N, K, p)
 
 \item{K}{integer, number of streaks.}
 
-\item{p}{number, probability of a single streak.}
+\item{p}{number, value between 0 & 1 representing the probability of a single streak.}
 }
 \value{
 a number between 0 and 1
@@ -21,5 +21,9 @@ Calculate the probability of the occurrence of at least K-streaks out of N-event
 given the odds of stated streak.
 }
 \examples{
-prob_of_at_least_k(N = 8, K = 1, p = odds_of_streak())
+prob_of_at_least_k(
+ N = 8,
+ K = 1,
+ p = odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
+)
 }
