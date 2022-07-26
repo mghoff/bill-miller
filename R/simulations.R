@@ -63,7 +63,7 @@ count_runs <- function(trials = 100,
     lr <- find_longest_run(
       sample = sample(sample_space, size = sample_size, replace = TRUE),
       run_value = run_value
-      )
+    )
     if (lr >= run_length) {
       total_applicable_runs <- total_applicable_runs + 1
     }
@@ -109,7 +109,7 @@ run_simulation <- function(iters = 100,
     applicable_trials = rep(NA_real_, iters),
     prob_of_zero = rep(NA_real_, iters),
     stringsAsFactors = FALSE
-    )
+  )
   for (i in 1:iters) {
     d[i, 2] <- count_runs(
       trials = trials,
@@ -117,7 +117,7 @@ run_simulation <- function(iters = 100,
       sample_size = sample_size,
       run_value = run_value,
       run_length = run_length
-      )
+    )
     d[i, 3] <- nrow(d[which(d[, 2] == 0), ]) / i
   }
   return(d)
