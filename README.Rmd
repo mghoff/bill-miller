@@ -23,12 +23,13 @@ knitr::opts_chunk$set(
 
 ## The Premise
 
-This package calculates "The Bill Miller Problem" from *The Drunkard's Walk: How Randomness Rules Our Lives*, the book written
-by Leonard Mlodinow.
+This package provides functions & documentation for solving "The Bill Miller Problem" presented within the book entitled *The Drunkard's Walk: How Randomness Rules Our Lives*, written by Leonard Mlodinow. More generally, the functions herein can be used to solve for, either analytically or by simulation, the likelihood of obtaining a winning streak of given length within a given number of attempts, attempted by a specified number of individuals.
 
-The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market - defined as outperforming the S&P500 - each year over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768. Dr. Mlodinow ups this likelihood, stating that the probability that any 1 person among 1000 who started "tossing coins" (i.e. picking stocks) was closer to 3%.
+The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market - defined as outperforming the S&P500 - each year over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768, or ~0.0032%, which is roughly true is one considers only the individual, Bill Miller, picking stocks.
 
-Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years in a row or longer given some 40 year period; i.e. given a 40 year period and 1000 traders, what is the probability that at least 1 person will obtain a winning streak of at least 15 years. Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%.
+However, what Dr. Mlodinow understands is that there are many hedge funds all picking stocks and based on this fact, poses the question: "Out of 1000 stock pickers (coin tossers), what are the odds that 1 of them beats the market over 15 consecutive years?" The answer to which is roughly 3%.
+
+Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years with the odds of winning in a given year equal to 0.5. Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; however, he provides no proof or evidence of this claim.
 
 **The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger than the 3% of his first calculation, is much smaller than the final proposed result of ~75%, which this package has been built to answer and results in a value of ~33%.**
 
@@ -53,11 +54,11 @@ For more information on the math behind this recursive odds calculation, see thi
 
 
 #### Part 2:
-To calculate the likelihood that at least x out of M people will obtain a streak of at least k Heads out of N coin tosses, one must perform the following:
+To calculate the likelihood that at least k out of M people will obtain a streak of at least j heads out of N coin tosses, one must perform the following:
 
 1. Calculate the PDF: 
 
-$\mathrm{P}(X = x) = {M \choose x}p^{x}(1-p)^{(M-x)}$
+$\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}$
 
 2. Calculate the CDF: 
 
@@ -78,11 +79,11 @@ Load Package...
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 5 heads out of 10 coin tosses
+Calculate the likelihood of a streak of at least 3 heads out of 5 coin tosses
 given that the probability p (q) of heads (tails) is fair, i.e. p = q = 0.5.
 
 ```{r prob-of-streak}
-pS <- odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5)
+pS <- odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
 pS
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
@@ -95,7 +96,7 @@ Now calculate the probability that at least 1 out of 5 people will obtain
 such a streak given that the probability of said streak is `r pS`.
 
 ```{r prob-at-least-k}
-pK <- prob_of_at_least_k(N = 5, K = 1, p = pS)
+pK <- prob_of_at_least_k(N = 8, K = 1, p = pS)
 pK
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
@@ -109,7 +110,8 @@ pK
 
 Run a simulation on the problem, and return the set of resulting data
 ```{r run-simulation}
-sim_data <- run_simulation(iters = 5000)
+set.seed(1234)
+sim_data <- run_simulation(iters = 1000, trials = 8, sample_size = 5, run_length = 3)
 tail(sim_data)
 ```
 

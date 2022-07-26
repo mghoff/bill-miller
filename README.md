@@ -14,25 +14,36 @@ Status](https://ci.appveyor.com/api/projects/status/github/ropensci/epubr?branch
 
 ## The Premise
 
-This package calculates “The Bill Miller Problem” from *The Drunkard’s
-Walk: How Randomness Rules Our Lives*, the book written by Leonard
-Mlodinow.
+This package provides functions & documentation for solving “The Bill
+Miller Problem” presented within the book entitled *The Drunkard’s Walk:
+How Randomness Rules Our Lives*, written by Leonard Mlodinow. More
+generally, the functions herein can be used to solve for, either
+analytically or by simulation, the likelihood of obtaining a winning
+streak of given length within a given number of attempts, attempted by a
+specified number of individuals.
 
 The premise of this story goes that Bill Miller (financier) was an
 amazing stock picker after having performed incredibly well - beating
 the market - defined as outperforming the S&P500 - each year over 15
 consecutive years. As a result, he was celebrated and acclaimed by the
 likes of Forbes and others, who claimed that the likelihood of his
-ability to perform this well was 1 in 32,768. Dr. Mlodinow ups this
-likelihood, stating that the probability that any 1 person among 1000
-who started “tossing coins” (i.e. picking stocks) was closer to 3%.
+ability to perform this well was 1 in 32,768, or \~0.0032%, which is
+roughly true is one considers only the individual, Bill Miller, picking
+stocks.
+
+However, what Dr. Mlodinow understands is that there are many hedge
+funds all picking stocks and based on this fact, poses the question:
+“Out of 1000 stock pickers (coin tossers), what are the odds that 1 of
+them beats the market over 15 consecutive years?” The answer to which is
+roughly 3%.
 
 Dr. Mlodinow then further refines this calculation by considering the
-scenario of beating the market 15 years in a row or longer given some 40
-year period; i.e. given a 40 year period and 1000 traders, what is the
-probability that at least 1 person will obtain a winning streak of at
-least 15 years. Based on this refinement, Dr. Mlodinow claims the odds
-are roughly 3 out of 4, or 75%.
+scenario of beating the market 15 years consecutively or longer over a
+40 year period; i.e. over 40 years and with 1000 traders, what is the
+probability that at least 1 trader will obtain a winning streak of at
+least 15 years with the odds of winning in a given year equal to 0.5.
+Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out
+of 4, or 75%; however, he provides no proof or evidence of this claim.
 
 **The resulting likelihood for any one person to beat the market within
 a definite start and stop time of at least 15 years in a single 40 year
@@ -65,13 +76,13 @@ post.
 
 #### Part 2:
 
-To calculate the likelihood that at least x out of M people will obtain
-a streak of at least k Heads out of N coin tosses, one must perform the
+To calculate the likelihood that at least k out of M people will obtain
+a streak of at least j heads out of N coin tosses, one must perform the
 following:
 
 1.  Calculate the PDF:
 
-![\\mathrm{P}(X = x) = {M \\choose x}p^{x}(1-p)^{(M-x)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3D%20x%29%20%3D%20%7BM%20%5Cchoose%20x%7Dp%5E%7Bx%7D%281-p%29%5E%7B%28M-x%29%7D "\mathrm{P}(X = x) = {M \choose x}p^{x}(1-p)^{(M-x)}")
+![\\mathrm{P}(M = k) = {M \\choose k}p^{k}(1-p)^{(M-k)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D "\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}")
 
 2.  Calculate the CDF:
 
@@ -91,14 +102,14 @@ Load Package…
 library(billmillr)
 ```
 
-Calculate the likelihood of a streak of at least 5 heads out of 10 coin
+Calculate the likelihood of a streak of at least 3 heads out of 5 coin
 tosses given that the probability p (q) of heads (tails) is fair, i.e. p
 = q = 0.5.
 
 ``` r
-pS <- odds_of_streak(num_coins = 10, min_heads = 5, prob_heads = 0.5)
+pS <- odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
 pS
-#> [1] 0.109375
+#> [1] 0.25
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
 # tictoc::tic()
@@ -107,13 +118,12 @@ pS
 ```
 
 Now calculate the probability that at least 1 out of 5 people will
-obtain such a streak given that the probability of said streak is
-0.109375.
+obtain such a streak given that the probability of said streak is 0.25.
 
 ``` r
-pK <- prob_of_at_least_k(N = 5, K = 1, p = pS)
+pK <- prob_of_at_least_k(N = 8, K = 1, p = pS)
 pK
-#> [1] 0.4396306
+#> [1] 0.8998871
 
 # # Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
 # # Result (1): P(X = k) where k = 0
@@ -126,15 +136,16 @@ pK
 Run a simulation on the problem, and return the set of resulting data
 
 ``` r
-sim_data <- run_simulation(iters = 5000)
+set.seed(1234)
+sim_data <- run_simulation(iters = 1000, trials = 8, sample_size = 5, run_length = 3)
 tail(sim_data)
 #>      iterations applicable_trials prob_of_zero
-#> 4995       4995                 1    0.6598599
-#> 4996       4996                 0    0.6599279
-#> 4997       4997                 0    0.6599960
-#> 4998       4998                 0    0.6600640
-#> 4999       4999                 0    0.6601320
-#> 5000       5000                 0    0.6602000
+#> 995         995                 2    0.1045226
+#> 996         996                 0    0.1054217
+#> 997         997                 2    0.1053159
+#> 998         998                 2    0.1052104
+#> 999         999                 1    0.1051051
+#> 1000       1000                 1    0.1050000
 ```
 
 Plot the probability convergence of the simulation results
@@ -147,9 +158,9 @@ Calculate the probability of obtaining zero streaks…
 ``` r
 tail(sim_data, n = 1)
 #>      iterations applicable_trials prob_of_zero
-#> 5000       5000                 0       0.6602
+#> 1000       1000                 1        0.105
 nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
-#> [1] 0.6602
+#> [1] 0.105
 ```
 
 …followed by the probability of at least 1 streak.
@@ -157,5 +168,5 @@ nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data)
 ``` r
 # Probability of at least 1 streak; i.e. 1 - P(0)
 1 - (nrow(sim_data[which(sim_data$applicable_trials == 0), ]) / nrow(sim_data))
-#> [1] 0.3398
+#> [1] 0.895
 ```
