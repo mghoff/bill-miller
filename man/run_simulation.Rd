@@ -43,10 +43,11 @@ designated length. Additionally, keep a running tally of the cumulative likeliho
 of obtaining exactly zero streaks.
 }
 \details{
-This function outputs a data frame with three columns:
+This function outputs a data frame with four columns:
 1.) the iteration number,
 2.) the count of applicable trials in that iteration, and
 3.) the cumulative probability of obtaining zero streaks.
+4.) the cumulative probability of obtaining at least one streak.
 }
 \examples{
 tail(

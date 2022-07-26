@@ -91,10 +91,11 @@ count_runs <- function(trials,
 #' designated length. Additionally, keep a running tally of the cumulative likelihood
 #' of obtaining exactly zero streaks.
 #'
-#' This function outputs a data frame with three columns:
+#' This function outputs a data frame with four columns:
 #' 1.) the iteration number,
 #' 2.) the count of applicable trials in that iteration, and
 #' 3.) the cumulative probability of obtaining zero streaks.
+#' 4.) the cumulative probability of obtaining at least one streak.
 #'
 #' @param iters number, number of simulation iterations.
 #' @param trials number, see \code{count_runs()}.
