@@ -96,7 +96,7 @@ Again, this is provided by `odds_of_streak()`.
 
 which is provided by `prob_of_at_least_k()`.
 
-## Example 1: Mathematical Proof
+### Example 1: Mathematical Proof
 
 Load Package…
 
@@ -135,7 +135,7 @@ pK
 # P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
 ```
 
-## Example 2: Simulation
+### Example 2: Simulation
 
 Run a simulation on the problem, and return the set of resulting data
 
