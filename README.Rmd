@@ -10,6 +10,7 @@ knitr::opts_chunk$set(
   comment = "#>",
   fig.path = "man/figures/README-"
 )
+library(billmillr)
 ```
 
 # billmillr
@@ -39,7 +40,7 @@ Dr. Mlodinow then further refines this calculation by considering the scenario o
 One must compute the odds of getting a run (Streak) of at least k heads out of N coin tosses where p (q = 1-p)
 is the probability of obtaining heads (tails) from the toss of a coin.
 
-Mathematically, 
+Mathematically,
 
 $$S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}$$
 
@@ -58,17 +59,17 @@ To calculate the likelihood that at least k out of M people will obtain a streak
 
 1. Calculate the PDF: 
 
-$\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}$
+$$\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}$$
 
 Again, this is provided by `odds_of_streak()`.
 
 2. Then, calculate the CDF: 
 
-$\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$
+$$\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$$
 
 3. And, finally, calculate the final result:
 
-$\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } (1) - (2)$
+$$\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)$$
 
 which is provided by `prob_of_at_least_k()`.
 
