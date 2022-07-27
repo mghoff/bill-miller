@@ -14,7 +14,8 @@
 
 # billmiller 0.2.5
 
-* FUNCTIONS:
+* Built and published pkgdown site to GitHub pages: https://mghoff.github.io/billmillr/
+* Function Updates:
   * Added argument checks to functions.
   * Stripped defaults from mandatory function arguments.
   * Optimized for performance.
@@ -22,6 +23,6 @@
   * Added sample_probs arg to simulation set of functions:
     * custom vector of sample probabilities to go alongside the provided sample space.
   * Added `prob_of_ge_one` column to `run_simulation()` output data frame.
-* README:
+* README Updates:
   * Re-wrote narrative/motivation for the package.
   * Stripped out bottom section with advent of `prob_of_ge_one`.
