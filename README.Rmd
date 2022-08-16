@@ -1,16 +1,23 @@
 ---
-output: github_document
+output:
+  github_document:
+    math_method:
+      engine: webtex
+      url: https://latex.codecogs.com/svg.image?
+always_allow_html: true
 ---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ```{r, include = FALSE}
-knitr::opts_chunk$set(
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/README-"
-)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>", fig.path = "man/figures/README-")
 library(billmillr)
+library(dplyr)
+library(tictoc)
+msg.toc <- function(tic, toc, msg) {
+  outmsg <- paste(round((toc - tic) / (60*60), 3), "hours elapsed")
+}
+pS <- 0.000411981018260121
 ```
 
 # billmillr
@@ -22,19 +29,32 @@ library(billmillr)
 [![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/ropensci/epubr?branch=master&svg=true)](https://ci.appveyor.com/project/leonawicz/epubr)
 
+## Why you should care about this package
+
+This package provides functions & documentation for solving "The Bill Miller Problem" presented within the book entitled 
+[*The Drunkard's Walk: How Randomness Rules Our Lives*](https://www.amazon.com/Drunkards-Walk-Randomness-Rules-Lives/dp/0307275175),
+written by theoretical physicist & mathematician [Leonard Mlodinow](https://en.wikipedia.org/wiki/Leonard_Mlodinow).
+More generally, the functions herein can be used to solve for, either analytically or by simulation, the likelihood of obtaining a winning streak of given length within a given number of attempts, attempted by a specified number of individuals.
+
+## Installation
+
+This package can be installed directly from GitHub via the `remotes` package.
+```{r billmillr-install, eval=FALSE}
+remotes::install_github("mghoff/billmillr")
+```
+
 ## The Premise
 
-This package provides functions & documentation for solving "The Bill Miller Problem" presented within the book entitled *The Drunkard's Walk: How Randomness Rules Our Lives*, written by Leonard Mlodinow. More generally, the functions herein can be used to solve for, either analytically or by simulation, the likelihood of obtaining a winning streak of given length within a given number of attempts, attempted by a specified number of individuals.
+The premise of this story goes that Bill Miller (financier) was received as an amazing stock picker after having performed incredibly well over 15 consecutive years - beating the S&P500 stock index year after year. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who estimated and published that the likelihood of his ability to perform this well being random chance was 1 in 32,768, or ~0.0032%, which is roughly true if one considers only the individual, Bill Miller, picking stocks. In other words, they claimed his winning streak is very likely *not* driven by random chance, but by his knowledge and intuition of the market allowing him to skillfully pick winning stocks at will.
 
-The premise of this story goes that Bill Miller (financier) was an amazing stock picker after having performed incredibly well - beating the market - defined as outperforming the S&P500 - each year over 15 consecutive years. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who claimed that the likelihood of his ability to perform this well was 1 in 32,768, or ~0.0032%, which is roughly true is one considers only the individual, Bill Miller, picking stocks.
+However, what Dr. Mlodinow understood and illustrated in his book is that there are/were many hedge fund managers all picking stocks.
+Based on this fact, he poses the following refinement to the above estimation: "Out of 1000 stock pickers (coin tossers), what are the odds that at least 1 of them beats the market over 15 consecutive years?" The answer to that question is roughly 3% - far greater than the original estimate of 0.0032%.
 
-However, what Dr. Mlodinow understands is that there are many hedge funds all picking stocks and based on this fact, poses the question: "Out of 1000 stock pickers (coin tossers), what are the odds that 1 of them beats the market over 15 consecutive years?" The answer to which is roughly 3%.
+Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years with the odds of winning in a given year equal to 0.5 (a fair coin toss). Based on this further refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; **however, he provides no proof or evidence of this claim.**
 
-Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years with the odds of winning in a given year equal to 0.5. Based on this refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; however, he provides no proof or evidence of this claim.
+*Based on the functions within this package, both analytically and by numerical simulation, one can calculate these odds within a high degree of accuracy, and as such, it is found that the odds of this last refined scenario is ~33%, rather than Dr. Mlodinow's claimed 75%.*
 
-**The resulting likelihood for any one person to beat the market within a definite start and stop time of at least 15 years in a single 40 year period, while larger than the 3% of his first calculation, is much smaller than the final proposed result of ~75%, which this package has been built to answer and results in a value of ~33%.**
-
-## The Math
+### The Math
 
 #### Part 1:
 One must compute the odds of getting a run (Streak) of at least k heads out of N coin tosses where p (q = 1-p)
@@ -73,8 +93,9 @@ $$\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)$$
 
 which is provided by `prob_of_at_least_k()`.
 
+### Examples
 
-### Example 1: Mathematical Proof
+#### Example 1: Mathematical Proof
 
 Load Package...
 
@@ -82,50 +103,115 @@ Load Package...
 library(billmillr)
 ```
 
-Calculate the likelihood of obtaining a winning streak of at least 3 heads out of 5 coin tosses
+In the context of the Bill Miller problem, we calculate the probability of
+obtaining a winning streak of at least 15 heads out of 40 coin tosses
 given that the probability p (q) of heads (tails) is fair, i.e. p = q = 0.5.
 
-```{r prob-of-streak}
-pS <- odds_of_streak(num_coins = 5, min_heads = 3, prob_heads = 0.5)
+```{r prob-of-streak, eval=FALSE}
+tictoc::tic()
+pS <- odds_of_streak(num_coins = 40, min_heads = 15, prob_heads = 0.5)
 pS
+#> [1] 0.000411981018260121
+tictoc::toc(func.toc = msg.toc)
+#> 16.474 hours elapsed
 
-### NOTE:
-# Example from "The Drunkard's Walk: How Randomness Rules Our Lives"
-# tictoc::tic()
-# odds_of_streak(40, 15, 0.5) = 0.000411981
-# tictoc::toc() # 24713.89 sec elapsed (6.865 hours)
+sessionInfo()
+#> R version 4.1.2 (2021-11-01)
+#> Platform: aarch64-apple-darwin20 (64-bit)
+#> Running under: macOS Monterey 12.3.1
+
+#> Matrix products: default
+#> LAPACK: /Library/Frameworks/R.framework/Versions/4.1-arm64/Resources/lib/libRlapack.dylib
+
+#> locale:
+#> [1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+#> attached base packages:
+#> [1] stats graphics grDevices utils datasets methods base     
+
+#> other attached packages:
+#> [1] billmillr_0.2.5
+
+#> loaded via a namespace (and not attached):
+#> [1] compiler_4.1.2 tictoc_1.0.1 tools_4.1.2   
 ```
 
-Now calculate the probability that at least 1 person out of 8 people will obtain
-such a winning streak of 3 heads given that the probability of said streak is `r pS`.
+Using `pS`, we can now calculate the probability that at least 1 out of 1000 people
+will obtain such a winning streak.
 
 ```{r prob-at-least-k}
-pK <- prob_of_at_least_k(N = 8, K = 1, p = pS)
+pK <- prob_of_at_least_k(N = 1000, K = 1, p = pS)
 pK
-
-### NOTE:
-# Example from "The Drunkard's Walk: How Randomness Rules Our Lives" continued...
-# Result (1): P(X = k) where k = 0 is calculated as choose(n, k)*(p**k)*((1-p)**(n-k))
-# P(X = 0) ~= 0.66 => P(X > 0) ~= 1 - 0.66 = 0.33
 ```
 
 
-### Example 2: Simulation
+#### Example 2: Simulation
 
-Run a simulation on the problem, and return the set of resulting data
+Simulate and return resulting data
 ```{r run-simulation}
-set.seed(1234)
+set.seed(1203)
+tictoc::tic()
 sim_data <- run_simulation(
-  iters = 5000,
-  trials = 8,
-  sample_space = c(0, 1),
-  sample_size = 5,
-  run_value = 1,
-  run_length = 3
-  )
+  iters = 2000,
+  trials = 1000, # Number of traders
+  sample_space = c("H", "T"),
+  sample_size = 40, # Number of years
+  run_value = "H",
+  run_length = 15 # Number of consecutive winning years
+)
+tictoc::toc()
 
-tail(sim_data)
+sim_data[2000, 3:4]
 ```
 
-Plot the probability convergence of the simulation results
-<p><img src="man/figures/README-fig1.png" class="centering" width="80%"></p>
+Plot convergence of simulation results
+```{r sim-plot, echo=FALSE, message=FALSE}
+library(ggplot2)
+  ggplot(sim_data, aes(x = iterations, y = prob_of_ge_one)) +
+    geom_line(col = "steelblue") + 
+    geom_smooth(col = "orange", lwd = 0.5) + 
+    labs(x = "iterations", y = "probability") +
+    theme_bw()
+```
+
+And finally, run a small bootstrap sampling of the simulation...
+```{r bootstrap, message=FALSE}
+# Number of times to run the simulation
+bsn <- 500
+# Build an empty matrix of proper dimensions to capture results 
+bs_sim_mtx <- matrix(
+  data = 0, nrow = bsn, ncol = 2,
+  dimnames = list(c(), c("prob_of_zero", "prob_of_ge_one"))
+)
+
+# Time and run bootstrap sampling of the above simulation
+tictoc::tic()
+for (bsi in 1:bsn) {
+  dat <- run_simulation(
+    iters = 2000,
+    trials = 1000, # Number of traders
+    sample_space = c("H", "T"),
+    sample_size = 40, # Number of years
+    run_value = "H",
+    run_length = 15 # Number of consecutive winning years
+  )
+  # Take the last row from simulation data above as i-th entry into matrix
+  bs_sim_mtx[bsi, ] <- as.matrix(dat[bsn, 3:4])
+}
+tictoc::toc(func.toc = msg.toc)
+
+colMeans(bs_sim_mtx)
+```
+
+```{r bsm-plot, echo=FALSE, message=FALSE}
+bs_sim_dat <- as.data.frame(bs_sim_mtx, stringsAsFactors = FALSE)
+mean <- dplyr::summarise(bs_sim_dat, mean = mean(prob_of_ge_one)) %>% .[[1]]
+medn <- dplyr::summarise(bs_sim_dat, mean = median(prob_of_ge_one)) %>% .[[1]]
+ggplot(bs_sim_dat, aes(x = prob_of_ge_one)) +
+  geom_histogram(alpha = 0.6, bins = 15, fill = "steelblue", col = "steelblue") +
+  geom_vline(aes(xintercept = mean), col = "red", lwd = 1) +
+  ggtitle("Bootstrap estimate of the probability of at least 1 person out of 1000\nobtaining a streak of 15 heads out of 40 coin tosses") +
+  labs(subtitle = paste0("Mean:  ", round(mean, 4), "; Median:  ", round(medn, 4), "; N:  ", bsn),
+       x = "probability", y = "count") +
+  theme_bw()
+```
