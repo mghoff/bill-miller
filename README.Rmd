@@ -1,9 +1,8 @@
 ---
+title: billmillr
 output:
   github_document:
-    math_method:
-      engine: webtex
-      url: https://latex.codecogs.com/svg.image?
+    math_method: webtex
 always_allow_html: true
 ---
 
@@ -19,8 +18,6 @@ msg.toc <- function(tic, toc, msg) {
 }
 pS <- 0.000411981018260121
 ```
-
-# billmillr
 
 **Author:** [Matthew Hoff](https://github.com/mghoff)
 <br/>

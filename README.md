@@ -1,7 +1,7 @@
+billmillr
+================
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-
-# billmillr
 
 **Author:** [Matthew Hoff](https://github.com/mghoff) <br/> **License:**
 [MIT](https://opensource.org/licenses/MIT)<br/>
@@ -79,11 +79,11 @@ heads (tails) from the toss of a coin.
 
 Mathematically,
 
-![S\[N, K\] = p^k + \sum\_{j=1, K} \\{ p^{(j-1)} (1-p) S\[N-j, K\] \\}](https://latex.codecogs.com/svg.image?S%5BN%2C%20K%5D%20%3D%20p%5Ek%20%2B%20%5Csum_%7Bj%3D1%2C%20K%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5BN-j%2C%20K%5D%20%5C%7D "S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}")
+![S\[N, K\] = p^k + \sum\_{j=1, K} \\{ p^{(j-1)} (1-p) S\[N-j, K\] \\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5BN%2C%20K%5D%20%3D%20p%5Ek%20%2B%20%5Csum_%7Bj%3D1%2C%20K%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5BN-j%2C%20K%5D%20%5C%7D "S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}")
 
 which can be broken down recursively into the sum of terms:
 
-![S\[n, k\] = p^k + ... = \sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \text{ for } 1 \le j \le k](https://latex.codecogs.com/svg.image?S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
+![S\[n, k\] = p^k + ... = \sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \text{ for } 1 \le j \le k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
 
 which is provided by `odds_of_streak()`.
 
@@ -100,17 +100,17 @@ following:
 
 1.  Calculate the PDF:
 
-![\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}](https://latex.codecogs.com/svg.image?%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D "\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}")
+![\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D "\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}")
 
 Again, this is provided by `odds_of_streak()`.
 
 2.  Then, calculate the CDF:
 
-![\mathrm{P}(X \le x) = \sum\_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}](https://latex.codecogs.com/svg.image?%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
+![\mathrm{P}(X \le x) = \sum\_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
 
 3.  And, finally, calculate the final result:
 
-![\mathrm{P}(X \> x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)](https://latex.codecogs.com/svg.image?%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%201%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)")
+![\mathrm{P}(X \> x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%201%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)")
 
 which is provided by `prob_of_at_least_k()`.
 
@@ -183,7 +183,7 @@ sim_data <- run_simulation(
   run_length = 15 # Number of consecutive winning years
 )
 tictoc::toc()
-#> 38.893 sec elapsed
+#> 39.068 sec elapsed
 
 sim_data[2000, 3:4]
 #>      prob_of_zero prob_of_ge_one
@@ -219,7 +219,7 @@ for (bsi in 1:bsn) {
   bs_sim_mtx[bsi, ] <- as.matrix(dat[bsn, 3:4])
 }
 tictoc::toc(func.toc = msg.toc)
-#> 5.178 hours elapsed
+#> 5.176 hours elapsed
 
 colMeans(bs_sim_mtx)
 #>   prob_of_zero prob_of_ge_one 
