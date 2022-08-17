@@ -42,14 +42,14 @@ remotes::install_github("mghoff/billmillr")
 
 ## The Premise
 
-The premise of this story goes that Bill Miller (financier) was received as an amazing stock picker after having performed incredibly well over 15 consecutive years - beating the S&P500 stock index year after year. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who estimated and published that the likelihood of his ability to perform this well being random chance was 1 in 32,768, or ~0.0032%, which is roughly true if one considers only the individual, Bill Miller, picking stocks. In other words, they claimed his winning streak is very likely *not* driven by random chance, but by his knowledge and intuition of the market allowing him to skillfully pick winning stocks at will.
+The premise of this story goes that Bill Miller (financier) was received as an amazing stock picker after having performed incredibly well over 15 consecutive years - beating the S&P500 stock index year after year. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who estimated and published that the likelihood of his ability to perform this well being random chance was 1 in 32,768, or ~0.0032%, which is roughly true if one considers only the individual, Bill Miller, picking stocks. In other words, they claimed his winning streak is very likely *not* driven by random chance, but instead by his knowledge and intuition of the market - allowing him to skillfully pick winning stocks at will.
 
 However, what Dr. Mlodinow understood and illustrated in his book is that there are/were many hedge fund managers all picking stocks.
-Based on this fact, he poses the following refinement to the above estimation: "Out of 1000 stock pickers (coin tossers), what are the odds that at least 1 of them beats the market over 15 consecutive years?" The answer to that question is roughly 3% - far greater than the original estimate of 0.0032%.
+Based on this fact, he poses the first of two refinements to the above estimation: "Out of 1000 stock pickers (coin tossers), what are the odds that at least 1 of them beats the market every year over 15 consecutive years?" The answer to that question is roughly 3% - far greater than the original estimate of 0.0032%. **This is trivial to verify.**
 
-Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years with the odds of winning in a given year equal to 0.5 (a fair coin toss). Based on this further refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; **however, he provides no proof or evidence of this claim.**
+The second and final refinement Dr. Mlodinow poses considers the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years given that the odds of winning in a given year are equal to 0.5 (a fair coin toss)? Based on this further refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; **however, for this he provides no proof or evidence.**
 
-*Based on the functions within this package, both analytically and by numerical simulation, one can calculate these odds within a high degree of accuracy, and as such, it is found that the odds of this last refined scenario is ~33%, rather than Dr. Mlodinow's claimed 75%.*
+*Based on the functions within this package, both analytically and by numerical simulation, one can calculate these odds within a high degree of accuracy, and as such, it is found that the odds estimate of this second & final refinement scenario is ~33.7%... quite different still from the claimed 75%.*
 
 ### The Math
 
@@ -59,11 +59,15 @@ is the probability of obtaining heads (tails) from the toss of a coin.
 
 Mathematically,
 
-$$S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}$$
+$$
+S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}
+$$
 
 which can be broken down recursively into the sum of terms:
 
-$$S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k$$
+$$
+S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k
+$$
 
 which is provided by `odds_of_streak()`.
 
@@ -76,17 +80,23 @@ To calculate the likelihood that at least k out of M people will obtain a streak
 
 1. Calculate the PDF: 
 
-$$\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}$$
+$$
+\mathrm{P}(M = k) = {M \choose k}p^{k}(1-p)^{(M-k)}
+$$
 
 Again, this is provided by `odds_of_streak()`.
 
 2. Then, calculate the CDF: 
 
-$$\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}$$
+$$
+\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}
+$$
 
 3. And, finally, calculate the final result:
 
-$$\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)$$
+$$
+\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{;  i.e. } (1) - (2)
+$$
 
 which is provided by `prob_of_at_least_k()`.
 
