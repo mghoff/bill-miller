@@ -44,30 +44,32 @@ others, who estimated and published that the likelihood of his ability
 to perform this well being random chance was 1 in 32,768, or \~0.0032%,
 which is roughly true if one considers only the individual, Bill Miller,
 picking stocks. In other words, they claimed his winning streak is very
-likely *not* driven by random chance, but by his knowledge and intuition
-of the market allowing him to skillfully pick winning stocks at will.
+likely *not* driven by random chance, but instead by his knowledge and
+intuition of the market - allowing him to skillfully pick winning stocks
+at will.
 
 However, what Dr. Mlodinow understood and illustrated in his book is
 that there are/were many hedge fund managers all picking stocks. Based
-on this fact, he poses the following refinement to the above estimation:
-“Out of 1000 stock pickers (coin tossers), what are the odds that at
-least 1 of them beats the market over 15 consecutive years?” The answer
-to that question is roughly 3% - far greater than the original estimate
-of 0.0032%.
+on this fact, he poses the first of two refinements to the above
+estimation: “Out of 1000 stock pickers (coin tossers), what are the odds
+that at least 1 of them beats the market every year over 15 consecutive
+years?” The answer to that question is roughly 3% - far greater than the
+original estimate of 0.0032%. **This is trivial to verify.**
 
-Dr. Mlodinow then further refines this calculation by considering the
+The second and final refinement Dr. Mlodinow poses considers the
 scenario of beating the market 15 years consecutively or longer over a
 40 year period; i.e. over 40 years and with 1000 traders, what is the
 probability that at least 1 trader will obtain a winning streak of at
-least 15 years with the odds of winning in a given year equal to 0.5 (a
-fair coin toss). Based on this further refinement, Dr. Mlodinow claims
-the odds are roughly 3 out of 4, or 75%; **however, he provides no proof
-or evidence of this claim.**
+least 15 years given that the odds of winning in a given year are equal
+to 0.5 (a fair coin toss)? Based on this further refinement,
+Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; **however,
+for this he provides no proof or evidence.**
 
 *Based on the functions within this package, both analytically and by
 numerical simulation, one can calculate these odds within a high degree
-of accuracy, and as such, it is found that the odds of this last refined
-scenario is \~33%, rather than Dr. Mlodinow’s claimed 75%.*
+of accuracy, and as such, it is found that the odds estimate of this
+second & final refinement scenario is \~33.7%… quite different still
+from the claimed 75%.*
 
 ### The Math
 
@@ -110,7 +112,7 @@ Again, this is provided by `odds_of_streak()`.
 
 3.  And, finally, calculate the final result:
 
-![\mathrm{P}(X \> x) = 1 - \mathrm{P}(X \le x) \text{; i.e. } 1 - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%201%20-%20%282%29)
+![\mathrm{P}(X \> x) = 1 - \mathrm{P}(X \le x) \text{;  i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20%20i.e.%20%7D%20%281%29%20-%20%282%29)
 
 which is provided by `prob_of_at_least_k()`.
 
@@ -183,7 +185,7 @@ sim_data <- run_simulation(
   run_length = 15 # Number of consecutive winning years
 )
 tictoc::toc()
-#> 39.068 sec elapsed
+#> 39.263 sec elapsed
 
 sim_data[2000, 3:4]
 #>      prob_of_zero prob_of_ge_one
@@ -219,7 +221,7 @@ for (bsi in 1:bsn) {
   bs_sim_mtx[bsi, ] <- as.matrix(dat[bsn, 3:4])
 }
 tictoc::toc(func.toc = msg.toc)
-#> 5.176 hours elapsed
+#> 5.186 hours elapsed
 
 colMeans(bs_sim_mtx)
 #>   prob_of_zero prob_of_ge_one 
