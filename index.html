@@ -88,10 +88,10 @@
 <div class="section level2">
 <h2 id="the-premise">The Premise<a class="anchor" aria-label="anchor" href="#the-premise"></a>
 </h2>
-<p>The premise of this story goes that Bill Miller (financier) was received as an amazing stock picker after having performed incredibly well over 15 consecutive years - beating the S&amp;P500 stock index year after year. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who estimated and published that the likelihood of his ability to perform this well being random chance was 1 in 32,768, or ~0.0032%, which is roughly true if one considers only the individual, Bill Miller, picking stocks. In other words, they claimed his winning streak is very likely <em>not</em> driven by random chance, but by his knowledge and intuition of the market allowing him to skillfully pick winning stocks at will.</p>
-<p>However, what Dr. Mlodinow understood and illustrated in his book is that there are/were many hedge fund managers all picking stocks. Based on this fact, he poses the following refinement to the above estimation: “Out of 1000 stock pickers (coin tossers), what are the odds that at least 1 of them beats the market over 15 consecutive years?” The answer to that question is roughly 3% - far greater than the original estimate of 0.0032%.</p>
-<p>Dr. Mlodinow then further refines this calculation by considering the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years with the odds of winning in a given year equal to 0.5 (a fair coin toss). Based on this further refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; <strong>however, he provides no proof or evidence of this claim.</strong></p>
-<p><em>Based on the functions within this package, both analytically and by numerical simulation, one can calculate these odds within a high degree of accuracy, and as such, it is found that the odds of this last refined scenario is ~33%, rather than Dr. Mlodinow’s claimed 75%.</em></p>
+<p>The premise of this story goes that Bill Miller (financier) was received as an amazing stock picker after having performed incredibly well over 15 consecutive years - beating the S&amp;P500 stock index year after year. As a result, he was celebrated and acclaimed by the likes of Forbes and others, who estimated and published that the likelihood of his ability to perform this well being random chance was 1 in 32,768, or ~0.0032%, which is roughly true if one considers only the individual, Bill Miller, picking stocks. In other words, they claimed his winning streak is very likely <em>not</em> driven by random chance, but instead by his knowledge and intuition of the market - allowing him to skillfully pick winning stocks at will.</p>
+<p>However, what Dr. Mlodinow understood and illustrated in his book is that there are/were many hedge fund managers all picking stocks. Based on this fact, he poses the first of two refinements to the above estimation: “Out of 1000 stock pickers (coin tossers), what are the odds that at least 1 of them beats the market every year over 15 consecutive years?” The answer to that question is roughly 3% - far greater than the original estimate of 0.0032%. <strong>This is trivial to verify.</strong></p>
+<p>The second and final refinement Dr. Mlodinow poses considers the scenario of beating the market 15 years consecutively or longer over a 40 year period; i.e. over 40 years and with 1000 traders, what is the probability that at least 1 trader will obtain a winning streak of at least 15 years given that the odds of winning in a given year are equal to 0.5 (a fair coin toss)? Based on this further refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; <strong>however, for this he provides no proof or evidence.</strong></p>
+<p><em>Based on the functions within this package, both analytically and by numerical simulation, one can calculate these odds within a high degree of accuracy, and as such, it is found that the odds estimate of this second &amp; final refinement scenario is ~33.7%… quite different still from the claimed 75%.</em></p>
 <div class="section level3">
 <h3 id="the-math">The Math<a class="anchor" aria-label="anchor" href="#the-math"></a>
 </h3>
@@ -125,7 +125,7 @@
 </div>
 <ol start="3" style="list-style-type: decimal"><li>And, finally, calculate the final result:</li></ol>
 <div class="figure">
-<img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20i.e.%20%7D%201%20-%20%282%29" alt=""><p class="caption">(X &gt; x) = 1 - (X x)  1 - (2)</p>
+<img src="https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&amp;space;%5Cbg_white&amp;space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20%20i.e.%20%7D%20%281%29%20-%20%282%29" alt=""><p class="caption">(X &gt; x) = 1 - (X x)  (1) - (2)</p>
 </div>
 <p>which is provided by <code><a href="reference/prob_of_at_least_k.html">prob_of_at_least_k()</a></code>.</p>
 </div>
@@ -189,7 +189,7 @@
 <span>  run_length <span class="op">=</span> <span class="fl">15</span> <span class="co"># Number of consecutive winning years</span></span>
 <span><span class="op">)</span></span>
 <span><span class="fu">tictoc</span><span class="fu">::</span><span class="fu">toc</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 39.068 sec elapsed</span></span>
+<span><span class="co">#&gt; 39.263 sec elapsed</span></span>
 <span></span>
 <span><span class="va">sim_data</span><span class="op">[</span><span class="fl">2000</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span></span>
 <span><span class="co">#&gt;      prob_of_zero prob_of_ge_one</span></span>
@@ -220,7 +220,7 @@
 <span>  <span class="va">bs_sim_mtx</span><span class="op">[</span><span class="va">bsi</span>, <span class="op">]</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span><span class="va">bsn</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span></span>
 <span><span class="op">}</span></span>
 <span><span class="fu">tictoc</span><span class="fu">::</span><span class="fu">toc</span><span class="op">(</span>func.toc <span class="op">=</span> <span class="va">msg.toc</span><span class="op">)</span></span>
-<span><span class="co">#&gt; 5.176 hours elapsed</span></span>
+<span><span class="co">#&gt; 5.186 hours elapsed</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/colSums.html" class="external-link">colMeans</a></span><span class="op">(</span><span class="va">bs_sim_mtx</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   prob_of_zero prob_of_ge_one </span></span>
