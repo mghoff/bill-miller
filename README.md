@@ -15,15 +15,14 @@ Status](https://ci.appveyor.com/api/projects/status/github/ropensci/epubr?branch
 ## Why you should care about this package
 
 This package provides functions & documentation for solving “The Bill
-Miller Problem” presented within the book entitled [*The Drunkard’s
-Walk: How Randomness Rules Our
-Lives*](https://www.amazon.com/Drunkards-Walk-Randomness-Rules-Lives/dp/0307275175),
-written by theoretical physicist & mathematician [Leonard
-Mlodinow](https://en.wikipedia.org/wiki/Leonard_Mlodinow). More
-generally, the functions herein can be used to solve for, either
-analytically or by simulation, the likelihood of obtaining a winning
-streak of given length within a given number of attempts, attempted by a
-specified number of individuals.
+Miller Problem” presented within theoretical physicist & mathematician
+[Leonard Mlodinow](https://en.wikipedia.org/wiki/Leonard_Mlodinow)’s
+book entitled [*The Drunkard’s Walk: How Randomness Rules Our
+Lives*](https://www.amazon.com/Drunkards-Walk-Randomness-Rules-Lives/dp/0307275175).
+More generally, the functions herein can be used to solve for - either
+analytically or by simulation - the likelihood of obtaining a winning
+streak of given length within a given number of attempts, as attempted
+by a specified number of individuals.
 
 ## Installation
 
@@ -36,17 +35,20 @@ remotes::install_github("mghoff/billmillr")
 
 ## The Premise
 
-The premise of this story goes that Bill Miller (financier) was received
-as an amazing stock picker after having performed incredibly well over
-15 consecutive years - beating the S&P500 stock index year after year.
-As a result, he was celebrated and acclaimed by the likes of Forbes and
-others, who estimated and published that the likelihood of his ability
-to perform this well being random chance was 1 in 32,768, or \~0.0032%,
-which is roughly true if one considers only the individual, Bill Miller,
-picking stocks. In other words, they claimed his winning streak is very
-likely *not* driven by random chance, but instead by his knowledge and
-intuition of the market - allowing him to skillfully pick winning stocks
-at will.
+The story goes that [Bill
+Miller](https://en.wikipedia.org/wiki/Bill_Miller_(investor)) (financier
+& hedge fund manager) was perceived as *the* premier stock picker after
+having performed incredibly well over 15 consecutive years (i.e. by
+beating the S&P-500 stock index each year). As a result, he was
+celebrated and acclaimed by the likes of Forbes and others, who
+estimated and published statistics on the odds of his success. They
+estimated that the likelihood of his being this performant by random
+chance alone was 1 in 32,768 or \~0.0032%. This estimate is roughly true
+if one considers only one individual - Bill Miller, in this case -
+picking stocks. In other words, they claimed his 15-year winning streak
+is very likely *not* driven by random chance alone, but instead by his
+knowledge and intuition of the market - allowing him to skillfully pick
+winning stocks seemingly at will.
 
 However, what Dr. Mlodinow understood and illustrated in his book is
 that there are/were many hedge fund managers all picking stocks. Based
@@ -57,62 +59,63 @@ years?” The answer to that question is roughly 3% - far greater than the
 original estimate of 0.0032%. **This is trivial to verify.**
 
 The second and final refinement Dr. Mlodinow poses considers the
-scenario of beating the market 15 years consecutively or longer over a
+scenario of beating the market 15 years consecutively or longer within a
 40 year period; i.e. over 40 years and with 1000 traders, what is the
 probability that at least 1 trader will obtain a winning streak of at
-least 15 years given that the odds of winning in a given year are equal
-to 0.5 (a fair coin toss)? Based on this further refinement,
-Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%; **however,
-for this he provides no proof or evidence.**
+least 15 years given that the odds of winning (beating the S&P-500) in
+any given year are equal to 0.5 (a fair coin toss)? On this additional
+refinement, Dr. Mlodinow claims the odds are roughly 3 out of 4, or 75%;
+*however, he provides no proof for this claim.*
 
-*Based on the functions within this package, both analytically and by
-numerical simulation, one can calculate these odds within a high degree
-of accuracy, and as such, it is found that the odds estimate of this
-second & final refinement scenario is \~33.7%… quite different still
-from the claimed 75%.*
+*Using the functions within this package, one can calculate - again,
+both analytically and by numerical simulation - these odds within a high
+degree of accuracy. It is found that the odds estimate of these two
+refinements is roughly \~33.7%… quite different still from the claimed
+75%.*
 
 ### The Math
 
 #### Part 1:
 
-One must compute the odds of getting a run (Streak) of at least k heads
-out of N coin tosses where p (q = 1-p) is the probability of obtaining
-heads (tails) from the toss of a coin.
+One must compute the odds of getting a run (i.e. streak) of at least k
+heads out of N coin tosses where p (q = 1-p) is the probability of
+obtaining heads (tails) from the toss of a coin.
 
 Mathematically,
 
-![](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5BN%2C%20K%5D%20%3D%20p%5Ek%20%2B%20%5Csum_%7Bj%3D1%2C%20K%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5BN-j%2C%20K%5D%20%5C%7D)
+![S\[N, K\] = p^k + \sum\_{j=1, K} \\{ p^{(j-1)} (1-p) S\[N-j, K\] \\}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5BN%2C%20K%5D%20%3D%20p%5Ek%20%2B%20%5Csum_%7Bj%3D1%2C%20K%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5BN-j%2C%20K%5D%20%5C%7D "S[N, K] = p^k + \sum_{j=1, K} \{ p^{(j-1)} (1-p) S[N-j, K] \}")
 
-which can be broken down recursively into the sum of terms:
+which can be broken down recursively into the following sum of terms:
 
-![](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k)
+![S\[n, k\] = p^k + ... = \sum\_{j=1, k} \\{ p^{(j-1)} (1-p) S\[n-j, k\] \\} \text{ for } 1 \le j \le k](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;S%5Bn%2C%20k%5D%20%3D%20p%5Ek%20%2B%20...%20%3D%20%5Csum_%7Bj%3D1%2C%20k%7D%20%5C%7B%20p%5E%7B%28j-1%29%7D%20%281-p%29%20S%5Bn-j%2C%20k%5D%20%5C%7D%20%5Ctext%7B%20for%20%7D%201%20%5Cle%20j%20%5Cle%20k "S[n, k] = p^k + ... = \sum_{j=1, k} \{ p^{(j-1)} (1-p) S[n-j, k] \} \text{ for } 1 \le j \le k")
 
-which is provided by `odds_of_streak()`.
+This sum of terms is provided by `odds_of_streak()`.
 
-For more information on the math behind this recursive odds calculation,
-see this [Ask A
+*For more information, see this [Ask A
 Mathematician](https://www.askamathematician.com/2010/07/q-whats-the-chance-of-getting-a-run-of-k-successes-in-n-bernoulli-trials-why-use-approximations-when-the-exact-answer-is-known/)
-post.
+post.*
 
 #### Part 2:
 
-To calculate the likelihood that at least k out of M people will obtain
-a streak of at least j heads out of N coin tosses, one must perform the
+To calculate the likelihood that at least j out of M people will obtain
+a streak of at least k heads out of N coin tosses, one must perform the
 following:
 
 1.  Calculate the PDF:
 
-![](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%20%3D%20k%29%20%3D%20%7BM%20%5Cchoose%20k%7Dp%5E%7Bk%7D%281-p%29%5E%7B%28M-k%29%7D)
+![\mathrm{P}(M=j) = {M \choose j}p^{j}(1-p)^{(M-j)}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28M%3Dj%29%20%3D%20%7BM%20%5Cchoose%20j%7Dp%5E%7Bj%7D%281-p%29%5E%7B%28M-j%29%7D "\mathrm{P}(M=j) = {M \choose j}p^{j}(1-p)^{(M-j)}")
 
 Again, this is provided by `odds_of_streak()`.
 
-2.  Then, calculate the CDF:
+2.  Next, calculate the CDF:
 
-![](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D)
+  
+![\mathrm{P}(X \le x) = \sum\_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%3D%20%5Csum_%7Bi%3D0%2Cx%7D%20%5Cmathrm%7Bpdf%7D%20%5Ctext%7B%20for%20%7D%20%7Bi%20%5Cle%20x%7D "\mathrm{P}(X \le x) = \sum_{i=0,x} \mathrm{pdf} \text{ for } {i \le x}")
 
-3.  And, finally, calculate the final result:
+3.  And lastly, calculate the final result:
 
-![](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20%20i.e.%20%7D%20%281%29%20-%20%282%29)
+  
+![\mathrm{P}(X \> x) = 1 - \mathrm{P}(X \le x) \text{;  i.e. } (1) - (2)](https://latex.codecogs.com/png.image?%5Cdpi%7B110%7D&space;%5Cbg_white&space;%5Cmathrm%7BP%7D%28X%20%3E%20x%29%20%3D%201%20-%20%5Cmathrm%7BP%7D%28X%20%5Cle%20x%29%20%5Ctext%7B%3B%20%20i.e.%20%7D%20%281%29%20-%20%282%29 "\mathrm{P}(X > x) = 1 - \mathrm{P}(X \le x) \text{;  i.e. } (1) - (2)")
 
 which is provided by `prob_of_at_least_k()`.
 
@@ -127,9 +130,9 @@ library(billmillr)
 ```
 
 In the context of the Bill Miller problem, we calculate the probability
-of obtaining a winning streak of at least 15 heads out of 40 coin tosses
-given that the probability p (q) of heads (tails) is fair, i.e. p = q =
-0.5.
+of obtaining a winning streak of at least 15 heads out of 40 coin
+tosses, given that the probability p (q) of heads (tails) is fair,
+i.e. p = q = 0.5.
 
 ``` r
 tictoc::tic()
@@ -160,8 +163,8 @@ sessionInfo()
 #> [1] compiler_4.1.2 tictoc_1.0.1 tools_4.1.2   
 ```
 
-Using `pS`, we can now calculate the probability that at least 1 out of
-1000 people will obtain such a winning streak.
+Using `pS`, we can now calculate the probability that at least 1 person
+out of 1000 people will obtain such a winning streak.
 
 ``` r
 pK <- prob_of_at_least_k(N = 1000, K = 1, p = pS)
@@ -185,14 +188,13 @@ sim_data <- run_simulation(
   run_length = 15 # Number of consecutive winning years
 )
 tictoc::toc()
-#> 39.263 sec elapsed
+#> 39.241 sec elapsed
 
 sim_data[2000, 3:4]
 #>      prob_of_zero prob_of_ge_one
 #> 2000        0.666          0.334
 ```
 
-Plot convergence of simulation results
 ![](man/figures/README-sim-plot-1.png)<!-- -->
 
 And finally, run a small bootstrap sampling of the simulation…
@@ -206,7 +208,7 @@ bs_sim_mtx <- matrix(
   dimnames = list(c(), c("prob_of_zero", "prob_of_ge_one"))
 )
 
-# Time and run bootstrap sampling of the above simulation
+# Run and time a bootstrap sampling estimate of the above simulation
 tictoc::tic()
 for (bsi in 1:bsn) {
   dat <- run_simulation(
@@ -221,7 +223,7 @@ for (bsi in 1:bsn) {
   bs_sim_mtx[bsi, ] <- as.matrix(dat[bsn, 3:4])
 }
 tictoc::toc(func.toc = msg.toc)
-#> 5.186 hours elapsed
+#> 5.148 hours elapsed
 
 colMeans(bs_sim_mtx)
 #>   prob_of_zero prob_of_ge_one 
